@@ -179,7 +179,7 @@
 
         .stdSize { background-color: #10b981; color: #fff; padding: 2px 8px; border-radius: 10px; font-weight: bold; font-size: 11px; white-space: nowrap; display: inline-block; direction: rtl; }
 
-        .engineering-alert { background: rgba(239, 68, 68, 0.12); border: 1.5px solid #ef4444; border-radius: 12px; padding: 14px 10px; margin-top: 16px; text-align: center; color: #ffffff; font-size: 13.5px; font-weight: 700; line-height: 1.6; box-shadow: 0 4px 6px rgba(0,0,0,0.15); width: 100%; direction: rtl; }
+        .engineering-alert { background: rgba(239, 68, 68, 0.12); border: 1.5px solid #ef4444; border-radius: 12px; padding: 14px 12px; margin-top: 16px; text-align: start; color: #ffffff; font-size: 13px; font-weight: 600; line-height: 1.7; box-shadow: 0 4px 6px rgba(0,0,0,0.15); width: 100%; direction: rtl; }
         .engineering-alert strong { color: #ffeb3b; }
 
         .solar-footer { background-color: #0f172a; text-align: center; padding: 24px 16px; margin-top: 24px; border-top: 1px solid #334155; }
@@ -218,7 +218,7 @@
             tr, td { page-break-inside: auto; }
             .container { display: block !important; box-shadow: none !important; max-width: 100% !important; width: 100% !important; background: white !important; overflow: visible !important; border-radius: 0 !important; margin: 0 !important; padding: 0 !important; color: #000000 !important; }
             
-            .print-only-header { display: block !important; padding: 0 0 10mm 0; border-bottom: 2px solid #059669; margin-bottom: 10mm; }
+            .print-only-header { display: block !important; padding: 0 0 10mm 0; border-bottom: 2px solid #059669; margin-bottom: 10mm; page-break-after: avoid !important; break-after: avoid !important; }
             .print-title { color: #059669 !important; text-align: center; font-size: 22pt !important; margin: 0 0 10px 0 !important; font-weight: bold; }
             .print-info-row { display: flex; justify-content: space-between; font-size: 12pt !important; margin-bottom: 8px; font-weight: bold; color: #000000 !important; }
             .print-client-box { background-color: #f8fafc !important; border: 1px solid #cbd5e1 !important; padding: 10px; border-radius: 8px; margin-top: 12px; font-size: 13pt !important; display: flex; gap: 8px; color: #000000 !important; }
@@ -226,7 +226,20 @@
 
             .header, .pdf-accordion, button, .btn, .btn-add, .btn-delete, input[type="checkbox"], .checkbox-container, .social-links, .solar-footer, .lang-toggle, .gold-badge-container { display: none !important; }
             
-            .section-title, .title-text { font-size: 15pt !important; color: #059669 !important; margin-bottom: 10pt !important; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px; text-align: start !important; }
+            /* منع العناوين اليتيمة في الطباعة */
+            .section-title, .title-text { 
+                font-size: 15pt !important; 
+                color: #059669 !important; 
+                margin-top: 15pt !important;
+                margin-bottom: 10pt !important; 
+                border-bottom: 1px solid #e2e8f0; 
+                padding-bottom: 5px; 
+                text-align: start !important; 
+                page-break-after: avoid !important; 
+                break-after: avoid !important; 
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
             .device-counter { display: none !important; }
 
             input { border: none !important; border-bottom: 1px dashed #94a3b8 !important; background: transparent !important; color: #000000 !important; padding: 2px !important; font-weight: bold !important; font-size: 12pt !important; border-radius: 0 !important; text-align: center !important; height: auto !important; }
@@ -237,9 +250,7 @@
             .hybrid-accordion:not(.has-data), .cables-accordion:not(.has-data) { display: none !important; }
             .enterprise-accordion:not(.has-data) { display: none !important; }
             
-            /* إخفاء جدول الأجهزة تماماً أثناء الطباعة إذا تم تفعيل وضع المشاريع الكبيرة */
             #appliancesSectionWrapper { display: none !important; }
-            
             .appliance-item { display: none !important; }
             .item-summary { display: none !important; }
 
@@ -248,34 +259,48 @@
             .input-group { display: inline-block !important; width: 48% !important; margin-bottom: 8px !important; vertical-align: top !important; text-align: start !important; color: #000000 !important; }
             .input-group label { display: block !important; font-size: 11pt !important; color: #334155 !important; font-weight: bold; margin-bottom: 2px !important; text-align: start !important; }
             
-            .results-container { display: block !important; background: transparent !important; border: 2px solid #059669 !important; margin-top: 15px !important; padding: 12px !important; border-radius: 12px !important; page-break-inside: avoid !important; color: #000000 !important; }
+            /* منع انقسام حاويات النتائج والهيكلية */
+            .results-container { 
+                display: block !important; 
+                background: transparent !important; 
+                border: 2px solid #059669 !important; 
+                margin-top: 15px !important; 
+                padding: 12px !important; 
+                border-radius: 12px !important; 
+                page-break-inside: avoid !important; 
+                break-inside: avoid !important; 
+                color: #000000 !important; 
+            }
             
-            .result-row { display: flex !important; flex-direction: column !important; align-items: flex-start !important; border: 1px solid #cbd5e1 !important; background: #fff !important; border-radius: 8px !important; padding: 8px 10px !important; margin-bottom: 8px !important; box-shadow: none !important; color: #000000 !important; }
+            .result-row { display: flex !important; flex-direction: column !important; align-items: flex-start !important; border: 1px solid #cbd5e1 !important; background: #fff !important; border-radius: 8px !important; padding: 8px 10px !important; margin-bottom: 8px !important; box-shadow: none !important; color: #000000 !important; page-break-inside: avoid !important; break-inside: avoid !important; }
             .result-row:last-child { margin-bottom: 0 !important; }
             .result-label { color: #334155 !important; font-size: 11pt !important; font-weight: bold !important; margin-bottom: 3px !important; text-align: start !important; width: 100% !important; }
             .result-value { justify-content: flex-start !important; text-align: left !important; color: #000000 !important; font-size: 13pt !important; direction: ltr !important; width: 100% !important; }
             .value-amber, .value-green, .value-blue, .value-emerald { color: #000000 !important; font-weight: bold !important; }
             
-            #enterpriseResultsWrapper { display: block !important; }
-            .enterprise-results-card { background: #f0fdf4 !important; border: 1px solid #059669 !important; margin-top: 8px !important; padding: 8px !important; color: #000000 !important; display: block !important; }
-            .enterprise-card-title { color: #059669 !important; font-size: 12pt !important; }
-            .enterprise-detail-block { padding: 6px 8px !important; margin-bottom: 6px !important; background: #ffffff !important; border-color: #cbd5e1 !important; color: #000000 !important; display: flex !important; }
+            #enterpriseResultsWrapper { display: block !important; page-break-inside: avoid !important; break-inside: avoid !important; }
+            .enterprise-results-card { background: #f0fdf4 !important; border: 1px solid #059669 !important; margin-top: 8px !important; padding: 8px !important; color: #000000 !important; display: block !important; page-break-inside: avoid !important; break-inside: avoid !important; }
+            .enterprise-card-title { color: #059669 !important; font-size: 12pt !important; page-break-after: avoid !important; break-after: avoid !important; }
+            
+            /* إزالة الإجبار العام لعرض الكتلة لكي يحترم جافاسكريبت حالات الإخفاء والإظهار */
+            .enterprise-detail-block { padding: 6px 8px !important; margin-bottom: 6px !important; background: #ffffff !important; border-color: #cbd5e1 !important; color: #000000 !important; page-break-inside: avoid !important; break-inside: avoid !important; }
+            
             .enterprise-detail-label { font-size: 10.5pt !important; color: #334155 !important; }
             .enterprise-detail-val { font-size: 12pt !important; color: #000000 !important; }
             
-            .cables-results-card { background: transparent !important; border: 1px solid #cbd5e1 !important; margin-top: 10px !important; color: #000000 !important; }
+            .cables-results-card { background: transparent !important; border: 1px solid #cbd5e1 !important; margin-top: 10px !important; color: #000000 !important; page-break-inside: avoid !important; break-inside: avoid !important; }
             .cables-card-title { color: #334155 !important; border-bottom-color: #cbd5e1 !important; }
             .cables-results-card .cable-disclaimer { color: #475569 !important; border-top-color: #cbd5e1 !important; }
             
             .stdSize { background-color: transparent !important; color: #000000 !important; font-weight: bold !important; font-size: 12pt !important; border: 1px solid #000 !important; padding: 2px 6px !important; border-radius: 4px !important; }
-            .engineering-alert { display: block !important; background: #fff5f5 !important; border: 2px solid #dc2626 !important; color: #b91c1c !important; box-shadow: none !important; margin-top: 10px !important; padding: 10px !important; border-radius: 8px !important; font-size: 12pt !important; text-align: center !important; }
+            .engineering-alert { display: block !important; background: #fff5f5 !important; border: 2px solid #dc2626 !important; color: #b91c1c !important; box-shadow: none !important; margin-top: 10px !important; padding: 10px !important; border-radius: 8px !important; font-size: 12pt !important; text-align: start !important; page-break-inside: avoid !important; break-inside: avoid !important; }
             .engineering-alert strong { color: #dc2626 !important; font-weight: bold !important; font-size: 13pt !important; }
             
             .print-footer-content { display: block !important; text-align: center; font-size: 10pt; color: #64748b; padding-top: 8px; border-top: 1px solid #cbd5e1; margin-top: 15px; font-weight: bold; }
 
-            .hybrid-accordion, .cables-accordion, .enterprise-accordion { border: 1px dashed #38bdf8 !important; background: #f0f9ff !important; margin-top: 12px !important; overflow: visible !important; color: #000000 !important; }
+            .hybrid-accordion, .cables-accordion, .enterprise-accordion { border: 1px dashed #38bdf8 !important; background: #f0f9ff !important; margin-top: 12px !important; overflow: visible !important; color: #000000 !important; page-break-inside: avoid !important; break-inside: avoid !important; }
             .enterprise-accordion { border-color: #059669 !important; background: #f0fdf4 !important; color: #000000 !important; }
-            .hybrid-accordion-header, .cables-accordion-header, .enterprise-accordion-header { color: #0284c7 !important; padding: 8px 10px !important; border-bottom: 1px solid #bae6fd !important; font-size: 12pt !important; }
+            .hybrid-accordion-header, .cables-accordion-header, .enterprise-accordion-header { color: #0284c7 !important; padding: 8px 10px !important; border-bottom: 1px solid #bae6fd !important; font-size: 12pt !important; page-break-after: avoid !important; break-after: avoid !important; }
             .enterprise-accordion-header { color: #059669 !important; border-bottom-color: #bbf7d0 !important; }
             .hybrid-icon, .cables-icon, .enterprise-icon { display: none !important; }
             .hybrid-accordion-body, .cables-accordion-body, .enterprise-accordion-body { max-height: none !important; opacity: 1 !important; display: block !important; padding: 8px 12px 12px 12px !important; overflow: visible !important; color: #000000 !important; }
@@ -692,7 +717,7 @@ if ('serviceWorker' in navigator) {
             
             entModeActive: "تم تفعيل وضع المشاريع الكبيرة (بناءً على الاستهلاك الإجمالي).<br>تم إيقاف جدول الأجهزة مؤقتاً لمنع ازدواجية الحسابات.",
             hvWarning: "⚠️ تنبيه هندسي صارم: الأحمال الضخمة تتطلب تيارات والكابلات فلكية على هذه الأنظمة! يُنصح بشدة الانتقال لنظام الجهد العالي (HV) لتفادي المخاطر والاعتمادية الضعيفة.",
-            industrialWarning: "⚠️ تنبيه هندسي صناعي: القدرات التي تتجاوز 30 كيلوواط تعتبر مشاريع تجارية أو صناعية كبرى، ولا تكفيها المقاسات الأحادية الظاهرة. يتطلب الأمر استخدام كابلات نحاسية متوازية متعددة أو قضبان نحاسية (Busbars) ودراسة هبوط جهد ميدانية متخصصة.",
+            industrialWarning: "⚠️ تنبيه هندسي صناعي: الإنفرترات (العواكس) التي تتجاوز 30 كيلوواط تعتبر مشاريع تجارية أو صناعية كبرى، ولا تناسبها المقاسات الأحادية الظاهرة. يتطلب الأمر استخدام كابلات نحاسية متوازية متعددة أو قضبان نحاسية (Busbars) ودراسة هبوط جهد ميدانية متخصصة.<br><br>يرجى الانتقال إلى وضع:<br><a href=\"javascript:void(0)\" onclick=\"scrollToEnterprise()\" style=\"color: #10b981; font-weight: bold; text-decoration: underline; display: inline-block; margin-top: 4px;\">إعدادات المنظومات الكبيرة والمشاريع التجارية</a>",
 
             resultsTitle: "📊 نتائج ومخرجات المنظومة الهندسية :",
             eTotal: "الطاقة الكلية شاملة الفقد (E_total):", battAh: "سعة بطارية الليثيوم المطلوبة:",
@@ -765,7 +790,7 @@ if ('serviceWorker' in navigator) {
             
             entModeActive: "Large Scale Project mode is active (based on total consumption).<br>The appliances table is temporarily disabled to prevent double counting.",
             hvWarning: "⚠️ Strict Engineering Alert: Massive loads require astronomical currents on these systems! Highly recommended to switch to High Voltage (HV) systems for safety and reliability.",
-            industrialWarning: "⚠️ Industrial Engineering Alert: Capacities exceeding 30kW are large commercial/industrial projects. Single cable sizes shown are insufficient; parallel multi-run cables or Busbars and specialized site drop studies are required.",
+            industrialWarning: "⚠️ Industrial Engineering Alert: Inverters exceeding 30kW are large commercial or industrial projects, and the single sizes shown are insufficient. It requires using multiple parallel copper cables or Busbars and a specialized field voltage drop study.<br><br>Please switch to:<br><a href=\"javascript:void(0)\" onclick=\"scrollToEnterprise()\" style=\"color: #10b981; font-weight: bold; text-decoration: underline; display: inline-block; margin-top: 4px;\">Large Systems & Commercial Projects</a>",
 
             resultsTitle: "📊 System Engineering Results & Output :",
             eTotal: "Total Energy with Losses (E_total):", battAh: "Required Lithium Battery Capacity:",
@@ -844,6 +869,18 @@ if ('serviceWorker' in navigator) {
             dropdown.closest('.custom-select-wrapper').style.zIndex = '1';
         }
         renderAppliances(); 
+    };
+
+    window.scrollToEnterprise = function() {
+        const acc = document.getElementById('enterpriseAccordion');
+        if(acc) {
+            if(!acc.classList.contains('open')) {
+                acc.classList.add('open');
+            }
+            setTimeout(() => {
+                acc.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 50);
+        }
     };
 
     document.addEventListener('click', function(event) {
@@ -1061,7 +1098,7 @@ if ('serviceWorker' in navigator) {
         const appliancesSectionWrapper = document.getElementById("appliancesSectionWrapper");
 
         if (entDailyKwh > 0) {
-            if(appliancesSectionWrapper) appliancesSectionWrapper.style.display = "none";
+            if(appliancesSectionWrapper) appliancesSectionWrapper.style.display = "block"; 
             if(document.getElementById("ent-override-msg")) document.getElementById("ent-override-msg").style.display = "block";
             if(document.getElementById("appliancesList")) document.getElementById("appliancesList").style.display = "none";
             if(document.getElementById("add-device-btn")) document.getElementById("add-device-btn").style.display = "none";
@@ -1303,8 +1340,14 @@ if ('serviceWorker' in navigator) {
 
         const solarDailyWh = Math.max(0, eTotal - gridDayWh);
         const solarNightWh = Math.max(0, eNightTotal - gridNightWh);
+        const minBufferWh = dailyWh * 0.15;
+        const effectiveSolarNightWh = Math.max(solarNightWh, minBufferWh);
         
-        const battKwh = (solarNightWh / dodValue) / 1000;
+        let battKwh = (effectiveSolarNightWh / dodValue) / 1000;
+        if (dailyWh > 0) {
+            let minBattKwh = (sysVolt === 12) ? 1.28 : 2.56; 
+            battKwh = Math.max(battKwh, minBattKwh);
+        }
         
         const reqPv = sunHours > 0 ? solarDailyWh / (sunHours * PANEL_PERFORMANCE_RATIO) : 0;
         const panelsCount = panelWatts > 0 ? Math.ceil(reqPv / panelWatts) : 0;
@@ -1325,15 +1368,13 @@ if ('serviceWorker' in navigator) {
         let standardRackKwh = 5.12; 
         let totalRacks = Math.ceil(battKwh / standardRackKwh);
         
-        // التعديل الأول: ضبط جهد الـ DC Bus لمنع تجاوزه 800V
         if (entDailyKwh > 0 && entSysType === "hv") {
             let totalLoadKw = finalInv / 1000;
             let numberOfUnits = Math.ceil(totalLoadKw / 500);
             let racksPerUnit = Math.ceil(totalRacks / numberOfUnits);
             
-            // وضع حد أقصى للرفوف المتسلسلة (14 رف = 716.8 فولت) ليتوافق مع عواكس HV
             let racksInSeries = Math.min(14, Math.max(1, racksPerUnit));
-            effectiveSysVolt = racksInSeries * 51.2; // جهد الـ DC Bus الفعلي المتسلسل
+            effectiveSysVolt = racksInSeries * 51.2;
         }
 
         const battAh = effectiveSysVolt > 0 ? (battKwh * 1000) / effectiveSysVolt : 0;
@@ -1429,7 +1470,6 @@ if ('serviceWorker' in navigator) {
                 if(document.getElementById("resEntInverters")) document.getElementById("resEntInverters").innerHTML = invertersTxt;
 
                 if (battKwh > 0 && document.getElementById("resEntBattVal")) {
-                    // التعديل الثاني: تحديث خوارزمية العرض في هيكلية البطاريات
                     if (entSysType === "hv") {
                         let racksPerUnit = Math.ceil(totalRacks / numberOfUnits);
                         let racksInSeries = Math.min(14, Math.max(1, racksPerUnit));
@@ -1471,7 +1511,7 @@ if ('serviceWorker' in navigator) {
                 let isIndustrialScale = finalInv > 30000;
                 if (industrialSlot) {
                     industrialSlot.innerHTML = isIndustrialScale ? 
-                        `<div style="background: rgba(239, 68, 68, 0.12); border: 1.5px solid #ef4444; border-radius: 10px; padding: 10px; margin-bottom: 12px; color: #ffffff; font-size: 11.5px; text-align: justify; line-height: 1.5; direction: rtl;">${t.industrialWarning}</div>` : '';
+                        `<div style="background: rgba(239, 68, 68, 0.12); border: 1.5px solid #ef4444; border-radius: 10px; padding: 12px; margin-bottom: 12px; color: #ffffff; font-size: 12px; text-align: start; line-height: 1.7; direction: rtl;">${t.industrialWarning}</div>` : '';
                 }
 
                 let bAmpsCalc = (finalInv / sysVolt) * climateFactor;
@@ -1481,17 +1521,34 @@ if ('serviceWorker' in navigator) {
                 let battBreaker = [100, 125, 150, 200, 250, 300].find(b => b >= maxBattAmps) || 250;
                 if (sysVolt === 48 && finalInv >= 5000) battBreaker = [200, 250].find(b => b >= maxBattAmps) || 250;
                 
-                let pAmpsCalc = (entSysType === "hv") ? (panelWatts / 400) * climateFactor : (panelWatts / sysVolt) * climateFactor; 
+                let estimatedImp = panelWatts > 0 ? (panelWatts / 36) : 13;
+                let pAmpsCalc = (entSysType === "hv") ? (panelWatts / 400) * climateFactor : estimatedImp * climateFactor; 
                 let pvBreaker = (entSysType === "hv") ? 16 : ([16, 20, 25, 32, 40].find(b => b >= pAmpsCalc) || 20);
                 let pvCableTxt = (entSysType === "hv") ? "4 mm² Solar PV" : "6 mm² (MC4)";
 
                 let aAmpsCalc = (entSysType === "three48") ? (finalInv / (380 * 1.732)) * climateFactor : (finalInv / 220) * climateFactor;
-                let acCable = acDist <= 30 ? 10 : 16;
-                let acBreaker = [32, 45, 63, 80, 100].find(b => b >= aAmpsCalc) || 63;
+                
+                let acCable = "10 mm²";
+                if (aAmpsCalc <= 32) {
+                    acCable = "6 mm²";
+                } else if (aAmpsCalc <= 50) {
+                    acCable = "10 mm²";
+                } else if (aAmpsCalc <= 80) {
+                    acCable = "16 mm²";
+                } else if (aAmpsCalc <= 120) {
+                    acCable = "25 mm²";
+                } else if (aAmpsCalc <= 160) {
+                    acCable = "35 mm²";
+                } else {
+                    acCable = "50 mm² أو كابلات مزدوجة (Parallel)";
+                }
+
+                let acMarketBreakers = [32, 45, 63, 80, 100, 125, 160, 200, 250, 300];
+                let acBreaker = acMarketBreakers.find(b => b >= aAmpsCalc) || 300;
                 
                 if(document.getElementById("resBattCable")) document.getElementById("resBattCable").innerHTML = `<span style="font-weight:bold;">${battCable} mm²</span> &nbsp;|&nbsp; <span style="font-weight:bold;">${battBreaker}A</span>`;
                 if(document.getElementById("resPvCable")) document.getElementById("resPvCable").innerHTML = `<span style="font-weight:bold;">${pvCableTxt}</span> &nbsp;|&nbsp; <span style="font-weight:bold;">${pvBreaker}A DC</span>`;
-                if(document.getElementById("resAcCable")) document.getElementById("resAcCable").innerHTML = `<span style="font-weight:bold;">${acCable} mm²</span> &nbsp;|&nbsp; <span style="font-weight:bold;">${acBreaker}A</span>`;
+                if(document.getElementById("resAcCable")) document.getElementById("resAcCable").innerHTML = `<span style="font-weight:bold;">${acCable}</span> &nbsp;|&nbsp; <span style="font-weight:bold;">${acBreaker}A</span>`;
             } else {
                 cablesWrapper.style.display = "none";
                 if(industrialSlot) industrialSlot.innerHTML = "";
