@@ -226,7 +226,6 @@
 
             .header, .pdf-accordion, button, .btn, .btn-add, .btn-delete, input[type="checkbox"], .checkbox-container, .social-links, .solar-footer, .lang-toggle, .gold-badge-container { display: none !important; }
             
-            /* منع العناوين اليتيمة في الطباعة */
             .section-title, .title-text { 
                 font-size: 15pt !important; 
                 color: #059669 !important; 
@@ -259,7 +258,6 @@
             .input-group { display: inline-block !important; width: 48% !important; margin-bottom: 8px !important; vertical-align: top !important; text-align: start !important; color: #000000 !important; }
             .input-group label { display: block !important; font-size: 11pt !important; color: #334155 !important; font-weight: bold; margin-bottom: 2px !important; text-align: start !important; }
             
-            /* منع انقسام حاويات النتائج والهيكلية */
             .results-container { 
                 display: block !important; 
                 background: transparent !important; 
@@ -282,7 +280,6 @@
             .enterprise-results-card { background: #f0fdf4 !important; border: 1px solid #059669 !important; margin-top: 8px !important; padding: 8px !important; color: #000000 !important; display: block !important; page-break-inside: avoid !important; break-inside: avoid !important; }
             .enterprise-card-title { color: #059669 !important; font-size: 12pt !important; page-break-after: avoid !important; break-after: avoid !important; }
             
-            /* إزالة الإجبار العام لعرض الكتلة لكي يحترم جافاسكريبت حالات الإخفاء والإظهار */
             .enterprise-detail-block { padding: 6px 8px !important; margin-bottom: 6px !important; background: #ffffff !important; border-color: #cbd5e1 !important; color: #000000 !important; page-break-inside: avoid !important; break-inside: avoid !important; }
             
             .enterprise-detail-label { font-size: 10.5pt !important; color: #334155 !important; }
@@ -425,7 +422,7 @@
                         <div class="cables-accordion" id="cablesAccordion">
                             <div class="cables-accordion-header" onclick="toggleCablesAccordion()">
                                 <div style="display: flex; align-items: center; gap: 8px;">
-                                    <span data-i18n="cablesTitle">🔌 إعدادات الكابلات والقواطع (اختياري)</span>
+                                    <span data-i18n="cablesTitle">⚙️ إعدادات الكابلات والقواطع (اختياري)</span>
                                 </div>
                                 <span class="cables-icon">▼</span>
                             </div>
@@ -691,7 +688,7 @@ if ('serviceWorker' in navigator) {
             hybridHint: "إذا كانت الكهرباء العمومية متوفرة، أدخل البيانات هنا لتقليل حجم المنظومة. (اتركها 0 لنظام مستقل):",
             gridDayHoursLabel: "ساعات الشحن نهاراً (ألواح):", gridNightHoursLabel: "ساعات الشحن ليلاً (بطارية):", acAmpsLabel: "تيار شاحن الشبكة (Amps):",
             
-            enterpriseTitle: "🏭 المنظومات الكبيرة والمشاريع التجارية",
+            enterpriseTitle: "🏭 إعدادات المنظومات الكبيرة والمشاريع التجارية",
             enterpriseHint: "مخصصة للمشاريع التجارية، المصانع، والمباني الكبيرة لتحديد حجم المنظومة فوراً:",
             systemTypeLabel: "نوع النظام الكهربائي:",
             singlePhaseOpt: "أحادي الطور (Single-Phase)",
@@ -707,7 +704,7 @@ if ('serviceWorker' in navigator) {
             entBattTopologyLbl: "توزيع وربط بنوك البطاريات:",
             entHvTopologyLbl: "توزيع سلاسل الألواح (Strings):",
             
-            cablesTitle: "🔌 الكابلات والقواطع (اختياري)",
+            cablesTitle: "⚙️ إعدادات الكابلات والقواطع (اختياري)",
             cablesHint: "أدخل البيانات المطلوبة لتقدير مقاسات الكابلات والحمايات (القواطع) الموصى بها :",
             battDistLabel: "مسافة كابل البطارية (متر):", acDistLabel: "مسافة كابل الأحمال (متر):",
             climateLabel: "طبيعة المناخ (للأمان):", climateMod: "معتدل (أمان 1.25)", climateHot: "حار جداً (أمان 1.50)",
@@ -716,7 +713,7 @@ if ('serviceWorker' in navigator) {
             devicesList: "📋 جدول حصر أحمال الأجهزة:", addDevice: "+ إضافة جهاز جـديد",
             
             entModeActive: "تم تفعيل وضع المشاريع الكبيرة (بناءً على الاستهلاك الإجمالي).<br>تم إيقاف جدول الأجهزة مؤقتاً لمنع ازدواجية الحسابات.",
-            hvWarning: "⚠️ تنبيه هندسي صارم: الأحمال الضخمة تتطلب تيارات والكابلات فلكية على هذه الأنظمة! يُنصح بشدة الانتقال لنظام الجهد العالي (HV) لتفادي المخاطر والاعتمادية الضعيفة.",
+            hvWarning: "⚠️ تنبيه هندسي: القدرات العالية على جهود التشغيل المنخفضة (48V) تولد تيارات تشغيلية عالية ومخاطر حرارية. يُنصح بالانتقال إلى أنظمة الجهد العالي (HV) لرفع الكفاءة والأمان.",
             industrialWarning: "⚠️ تنبيه هندسي صناعي: الإنفرترات (العواكس) التي تتجاوز 30 كيلوواط تعتبر مشاريع تجارية أو صناعية كبرى، ولا تناسبها المقاسات الأحادية الظاهرة. يتطلب الأمر استخدام كابلات نحاسية متوازية متعددة أو قضبان نحاسية (Busbars) ودراسة هبوط جهد ميدانية متخصصة.<br><br>يرجى الانتقال إلى وضع:<br><a href=\"javascript:void(0)\" onclick=\"scrollToEnterprise()\" style=\"color: #10b981; font-weight: bold; text-decoration: underline; display: inline-block; margin-top: 4px;\">إعدادات المنظومات الكبيرة والمشاريع التجارية</a>",
 
             resultsTitle: "📊 نتائج ومخرجات المنظومة الهندسية :",
@@ -743,9 +740,15 @@ if ('serviceWorker' in navigator) {
             totalCountTxt: "العدد الإجمالي:",
             dayUnit: " / يوم", pnlWord: "ألواح", wWord: "واط", ampWord: "أمبير",
             stdSize: "حجم قياسي", surgeText: "إقلاع:",
-            mpptAlert1: "يتطلب كحد أدنى عدد", mpptAlert2: "منظماً بقدرة", mpptAlert3: "أمبير",
-            invAlert1: "تنبيه هندسي صارم:", invAlert2: "هذا النظام", invAlert3: "فولت) غير آمن ولا يوصى به لهذه الأحمال.",
-            invAlert4: "المقترح الفني: إنفرتر بقدرة", invAlert5: "واط", invAlert6: "مع ضرورة الترقية الفورية لنظام 48 فولت.",
+            mpptAlert1: "يتطلب كحد أدنى منظمات شحن عدد",
+            mpptAlert2: "بقدرة",
+            mpptAlert3: "أمبير للمنظم الواحد",
+            invAlert1: "تنبيه هندسي صارم:", 
+            invAlert2: "هذا النظام", 
+            invAlert3: " فولت) غير آمن ولا يُنصح به لهذه الأحمال الضخمة.",
+            invAlert4: "المقترح الفني: إنفرتر بقدرة", 
+            invAlert5: "واط", 
+            invAlert6: "مع ضرورة الترقية الفورية لنظام 48 فولت.",
             confirmDel: "⚠️ هل أنت متأكد من مسح جميع الأجهزة والبيانات؟",
             pdfSettingsTitle: "📄 إعدادات تصدير التقرير (PDF)", engNameLabel: "اسم المهندس/المؤسسة:",
             clientNameLabel: "اسم العميل/المشروع:", techReportTitle: "تقرير تصميم منظومة طاقة شمسية",
@@ -764,7 +767,7 @@ if ('serviceWorker' in navigator) {
             hybridHint: "If grid/gen is available, enter details to reduce required system size. (Leave 0 for Off-Grid):",
             gridDayHoursLabel: "Daytime Charge Hours (Panels):", gridNightHoursLabel: "Nighttime Charge Hours (Battery):", acAmpsLabel: "AC Charge Current (A):",
             
-            enterpriseTitle: "🏭 Large Systems & Commercial Projects",
+            enterpriseTitle: "🏭 Large Systems & Commercial Settings",
             enterpriseHint: "Designed for commercial projects, factories, and buildings to quickly size the system:",
             systemTypeLabel: "Electrical System Type:",
             singlePhaseOpt: "Single-Phase",
@@ -780,7 +783,7 @@ if ('serviceWorker' in navigator) {
             entBattTopologyLbl: "Battery Racks & Banks Topology:",
             entHvTopologyLbl: "PV Strings Topology:",
 
-            cablesTitle: "🔌 Cables & Climate Settings (Optional)",
+            cablesTitle: "⚙️ Cables & Climate Settings (Optional)",
             cablesHint: "Enter the required data to estimate the recommended cables and protections (breakers) :",
             battDistLabel: "Battery Cable Distance (m):", acDistLabel: "AC Load Cable Distance (m):",
             climateLabel: "Climate Factor:", climateMod: "Moderate (1.25x)", climateHot: "Very Hot (1.50x)",
@@ -789,8 +792,8 @@ if ('serviceWorker' in navigator) {
             devicesList: "📋 Appliances Load Schedule:", addDevice: "+ Add New Appliance",
             
             entModeActive: "Large Scale Project mode is active (based on total consumption).<br>The appliances table is temporarily disabled to prevent double counting.",
-            hvWarning: "⚠️ Strict Engineering Alert: Massive loads require astronomical currents on these systems! Highly recommended to switch to High Voltage (HV) systems for safety and reliability.",
-            industrialWarning: "⚠️ Industrial Engineering Alert: Inverters exceeding 30kW are large commercial or industrial projects, and the single sizes shown are insufficient. It requires using multiple parallel copper cables or Busbars and a specialized field voltage drop study.<br><br>Please switch to:<br><a href=\"javascript:void(0)\" onclick=\"scrollToEnterprise()\" style=\"color: #10b981; font-weight: bold; text-decoration: underline; display: inline-block; margin-top: 4px;\">Large Systems & Commercial Projects</a>",
+            hvWarning: "⚠️ Engineering Alert: High capacities on low operating voltages (48V) generate high operational currents and thermal risks. Switching to High Voltage (HV) systems is recommended to enhance efficiency and safety.",
+            industrialWarning: "⚠️ Industrial Engineering Alert: Inverters exceeding 30kW are large commercial or industrial projects, and the single sizes shown are insufficient. It requires using multiple parallel copper cables or Busbars and a specialized field voltage drop study.<br><br>Please switch to:<br><a href=\"javascript:void(0)\" onclick=\"scrollToEnterprise()\" style=\"color: #10b981; font-weight: bold; text-decoration: underline; display: inline-block; margin-top: 4px;\">Large Systems & Commercial Settings</a>",
 
             resultsTitle: "📊 System Engineering Results & Output :",
             eTotal: "Total Energy with Losses (E_total):", battAh: "Required Lithium Battery Capacity:",
@@ -816,9 +819,15 @@ if ('serviceWorker' in navigator) {
             totalCountTxt: "Total Count:",
             dayUnit: " / Day", pnlWord: "Panels", wWord: "W", ampWord: "A",
             stdSize: "Standard Size", surgeText: "Surge:",
-            mpptAlert1: "Requires at least", mpptAlert2: "Controllers", mpptAlert3: "",
-            invAlert1: "Strict Engineering Alert:", invAlert2: "This", invAlert3: "V) system is unsafe & not recommended for these loads.",
-            invAlert4: "Technical Proposal: Inverter with", invAlert5: "W", invAlert6: "with immediate upgrade to 48V system required.",
+            mpptAlert1: "Requires a minimum of",
+            mpptAlert2: "charge controllers at",
+            mpptAlert3: "each",
+            invAlert1: "Strict Engineering Alert:", 
+            invAlert2: "This", 
+            invAlert3: "V) system is unsafe & not recommended for these massive loads.",
+            invAlert4: "Technical Proposal: Inverter with", 
+            invAlert5: "W", 
+            invAlert6: "with immediate upgrade to 48V system required.",
             confirmDel: "⚠️ Are you sure you want to clear all appliances and data?",
             pdfSettingsTitle: "📄 PDF Report Settings", engNameLabel: "Engineer/Company Name:",
             clientNameLabel: "Client/Project Name:", techReportTitle: "Solar System Design Report",
@@ -835,6 +844,20 @@ if ('serviceWorker' in navigator) {
     window.fmt2 = function(n) {
         const v = Number(n);
         return (isFinite(v) ? v : 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    };
+    
+    // دالة محسنة لضبط تمييز العدد للألواح بدقة تامة مع الأصفار ومضاعفات المئات والآلاف
+    window.getArabicPanelsString = function(count) {
+        if (window.currentLang !== 'ar') return dict['en'].pnlWord;
+        let m100 = count % 100;
+        let m10 = count % 10;
+        if (count === 1) return "لوح شمسي";
+        if (count === 2) return "لوحان";
+        if (m100 === 0) return "لوح"; // للأعداد التي تنتهي بـ 00 مثل 100, 1000, 3200
+        if (m10 === 0 && m100 >= 10) return "لوح"; // للأعداد التي تنتهي بصفر عشرات مثل 10, 20, 30, 210
+        if (m100 >= 3 && m100 <= 10) return "ألواح";
+        if (m100 >= 11 && m100 <= 99) return "لوحاً";
+        return "لوح";
     };
     
     window.toggleDropdown = function(id) {
@@ -1389,7 +1412,11 @@ if ('serviceWorker' in navigator) {
         if(document.getElementById("resTotalEnergy")) document.getElementById("resTotalEnergy").innerHTML = `${fmt2(eTotal)} ${t.wh}${t.dayUnit}`;
         if(document.getElementById("resBatteryAh")) document.getElementById("resBatteryAh").innerHTML = `${fmt2(battAh)} Ah ${entSysType === "hv" && entDailyKwh > 0 ? '<span style="font-size:11px; color:#94a3b8;">(High Voltage)</span>' : ''}`;
         if(document.getElementById("resBatteryKwh")) document.getElementById("resBatteryKwh").innerHTML = `${fmt2(battKwh * effectiveSysVolt > 0 ? battKwh * 1000 : 0)} ${t.wh} <span style="color:#64748b; font-size: 13px; font-weight: normal;">(${battKwh.toFixed(2)} kWh)</span>`;
-        if(document.getElementById("resPanelsCount")) document.getElementById("resPanelsCount").innerHTML = `${panelsCount.toLocaleString("en-US")} ${t.pnlWord} <span style="color:#64748b; font-size: 13px; font-weight: normal;">(${fmt2(totalPanelPower)} ${t.wWord})</span>`;
+        
+        // استدعاء دالة التمييز اللغوي المحدثة للألواح
+        let pnlText = getArabicPanelsString(panelsCount);
+        if(document.getElementById("resPanelsCount")) document.getElementById("resPanelsCount").innerHTML = `${panelsCount.toLocaleString("en-US")} ${pnlText} <span style="color:#64748b; font-size: 13px; font-weight: normal;">(${fmt2(totalPanelPower)} ${t.wWord})</span>`;
+        
         if(document.getElementById("resMpptCurrent")) document.getElementById("resMpptCurrent").innerHTML = mpptDisplay;
         
         if(document.getElementById("resInverterWatts")) {
