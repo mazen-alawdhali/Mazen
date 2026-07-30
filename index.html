@@ -246,8 +246,7 @@
             .custom-select-display { background: transparent !important; border: none !important; border-bottom: 1px dashed #94a3b8 !important; color: #000000 !important; padding: 2px !important; font-weight: bold !important; font-size: 12pt !important; border-radius: 0 !important; height: auto !important; }
             .custom-select-display span:last-child { display: none !important; }
             
-            .hybrid-accordion:not(.has-data), .cables-accordion:not(.has-data) { display: none !important; }
-            .enterprise-accordion:not(.has-data) { display: none !important; }
+            .hybrid-accordion:not(.has-data), .cables-accordion:not(.has-data), .enterprise-accordion:not(.has-data) { display: none !important; }
             
             #appliancesSectionWrapper { display: none !important; }
             .appliance-item { display: none !important; }
@@ -276,7 +275,9 @@
             .result-value { justify-content: flex-start !important; text-align: left !important; color: #000000 !important; font-size: 13pt !important; direction: ltr !important; width: 100% !important; }
             .value-amber, .value-green, .value-blue, .value-emerald { color: #000000 !important; font-weight: bold !important; }
             
-            #enterpriseResultsWrapper { display: block !important; page-break-inside: avoid !important; break-inside: avoid !important; }
+            #enterpriseResultsWrapper { display: none !important; }
+            #enterpriseResultsWrapper[style*="display: block"] { display: block !important; page-break-inside: avoid !important; break-inside: avoid !important; }
+            
             .enterprise-results-card { background: #f0fdf4 !important; border: 1px solid #059669 !important; margin-top: 8px !important; padding: 8px !important; color: #000000 !important; display: block !important; page-break-inside: avoid !important; break-inside: avoid !important; }
             .enterprise-card-title { color: #059669 !important; font-size: 12pt !important; page-break-after: avoid !important; break-after: avoid !important; }
             
@@ -846,15 +847,14 @@ if ('serviceWorker' in navigator) {
         return (isFinite(v) ? v : 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     };
     
-    // دالة محسنة لضبط تمييز العدد للألواح بدقة تامة مع الأصفار ومضاعفات المئات والآلاف
     window.getArabicPanelsString = function(count) {
         if (window.currentLang !== 'ar') return dict['en'].pnlWord;
         let m100 = count % 100;
         let m10 = count % 10;
         if (count === 1) return "لوح شمسي";
         if (count === 2) return "لوحان";
-        if (m100 === 0) return "لوح"; // للأعداد التي تنتهي بـ 00 مثل 100, 1000, 3200
-        if (m10 === 0 && m100 >= 10) return "لوح"; // للأعداد التي تنتهي بصفر عشرات مثل 10, 20, 30, 210
+        if (m100 === 0) return "لوح";
+        if (m10 === 0 && m100 >= 10) return "لوح";
         if (m100 >= 3 && m100 <= 10) return "ألواح";
         if (m100 >= 11 && m100 <= 99) return "لوحاً";
         return "لوح";
@@ -1413,7 +1413,6 @@ if ('serviceWorker' in navigator) {
         if(document.getElementById("resBatteryAh")) document.getElementById("resBatteryAh").innerHTML = `${fmt2(battAh)} Ah ${entSysType === "hv" && entDailyKwh > 0 ? '<span style="font-size:11px; color:#94a3b8;">(High Voltage)</span>' : ''}`;
         if(document.getElementById("resBatteryKwh")) document.getElementById("resBatteryKwh").innerHTML = `${fmt2(battKwh * effectiveSysVolt > 0 ? battKwh * 1000 : 0)} ${t.wh} <span style="color:#64748b; font-size: 13px; font-weight: normal;">(${battKwh.toFixed(2)} kWh)</span>`;
         
-        // استدعاء دالة التمييز اللغوي المحدثة للألواح
         let pnlText = getArabicPanelsString(panelsCount);
         if(document.getElementById("resPanelsCount")) document.getElementById("resPanelsCount").innerHTML = `${panelsCount.toLocaleString("en-US")} ${pnlText} <span style="color:#64748b; font-size: 13px; font-weight: normal;">(${fmt2(totalPanelPower)} ${t.wWord})</span>`;
         
