@@ -3,16 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>مساعد النشر - Post Helper</title>
+  <title>مساعد النشر - Post Helper Pro</title>
   
+  <!-- إعدادات تطبيق الويب (PWA) -->
   <meta name="theme-color" content="#18191A">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="مساعد النشر">
   
+  <!-- أيقونة مكبر الصوت للمتصفح -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📢</text></svg>">
-
+  
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
   
   <!-- مكتبات Firebase السحابية -->
@@ -38,7 +40,8 @@
     .card { background: #242526; padding: 15px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); width: 100%; box-sizing: border-box; border: 1px solid #333; }
     .card h3 { margin: 0 0 10px 0; font-size: 16px; color: #E4E6EB; }
 
-    .toolbar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; width: 100%; }
+    /* شريط تنسيق النص */
+    .toolbar { display: flex; gap: 6px; margin-bottom: 10px; width: 100%; }
     .toolbar button { flex: 1; background-color: #3A3B3C; color: #E4E6EB; border: 1px solid #555; padding: 8px 2px; border-radius: 6px; cursor: pointer; font-family: inherit; font-weight: bold; font-size: 12px; white-space: nowrap; text-align: center; transition: background 0.2s; }
     .toolbar button:active { background-color: #555; }
     .toolbar button:hover { background-color: #4A4B4C; }
@@ -47,6 +50,7 @@
     #postEditor:focus { border-color: #4599FF; }
     #postEditor::placeholder { color: #B0B3B8; }
     
+    /* أزرار النسخ والحذف */
     .actions-row { display: flex; gap: 10px; width: 100%; }
     .btn-copy { flex: 1; background: #31A24C; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-size: 15px; font-weight: 700; font-family: inherit; transition: 0.3s; text-align: center; }
     .btn-copy.copied { background: #2b8f42; }
@@ -54,6 +58,7 @@
     .btn-clear { flex: 1; background: #3A3B3C; color: #E4E6EB; border: 1px solid #555; padding: 12px; border-radius: 8px; cursor: pointer; font-size: 15px; font-weight: 700; font-family: inherit; transition: 0.2s; text-align: center; }
     .btn-clear:hover { background: #E41E3F; border-color: #E41E3F; color: white; }
 
+    /* الإدخال */
     .input-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
     .input-group input { width: 100%; padding: 12px; background-color: #3A3B3C; color: #E4E6EB; border: 1px solid #555; border-radius: 8px; font-size: 14px; box-sizing: border-box; font-family: inherit; }
     .input-group input::placeholder { color: #B0B3B8; }
@@ -62,10 +67,12 @@
 
     .btn-add { background: #2374E1; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 15px; width: 100%; font-family: inherit; }
 
+    /* النسخ الاحتياطي */
     .backup-row { display: flex; gap: 10px; margin-top: 10px; }
     .btn-backup { flex: 1; background: #2D3748; color: #E4E6EB; border: 1px solid #4A5568; padding: 8px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; text-align: center; transition: 0.2s; }
     .btn-backup:hover { background: #4A5568; }
 
+    /* أدوات التحكم: الفلترة والبحث والعداد */
     .controls-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     #progressCounter { font-size: 14px; font-weight: 700; color: #B0B3B8; }
     #progressCounter span { color: #31A24C; font-size: 16px; }
@@ -76,10 +83,11 @@
     #searchInput { width: 100%; padding: 10px 12px; background-color: #3A3B3C; color: #E4E6EB; border: 1px solid #555; border-radius: 8px; font-size: 14px; box-sizing: border-box; font-family: inherit; margin-bottom: 12px; outline: none; }
     #searchInput:focus { border-color: #4599FF; }
     
-    .filter-tabs { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; }
+    .filter-tabs { display: flex; gap: 8px; width: 100%; }
     .filter-tabs button { flex: 1; background-color: #3A3B3C; color: #B0B3B8; border: 1px solid #555; padding: 8px 4px; border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: bold; transition: 0.3s; white-space: nowrap; text-align: center; }
     .filter-tabs button.active { background-color: #2374E1; color: white; border-color: #2374E1; }
 
+    /* قائمة المجموعات */
     .group-item { display: flex; flex-direction: column; padding: 15px 0; border-bottom: 1px solid #3E4042; gap: 12px; }
     .group-item:last-child { border-bottom: none; padding-bottom: 0; }
     
@@ -105,6 +113,7 @@
     .btn-top { background: #3A3B3C; color: #E4E6EB; border: 1px solid #555; padding: 12px; border-radius: 8px; cursor: pointer; font-size: 15px; font-weight: 700; width: 100%; font-family: inherit; transition: 0.3s; margin-top: 5px; text-align: center; }
     .btn-top:hover { background: #4599FF; color: white; border-color: #4599FF; }
 
+    /* تصميم النافذة المنبثقة المخصصة (Custom Modal) */
     .custom-modal-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0, 0, 0, 0.75);
@@ -190,7 +199,7 @@
       <div class="backup-row">
         <button class="btn-backup" onclick="exportData()">💾 تصدير المجموعات</button>
         <button class="btn-backup" onclick="triggerImport()">📂 استيراد المجموعات</button>
-        <input type="file" id="importFile" style="display:none" accept=".json,application/json,text/plain" onchange="importData(event)">
+        <input type="file" id="importFile" style="display:none" accept=".json" onchange="importData(event)">
       </div>
     </div>
 
@@ -240,30 +249,51 @@
     let groups = [];
     let currentFilter = 'all';
 
-    // جلب البيانات من سحابة Firebase عند تحميل الصفحة
+    // دالة الهجرة الآمنة من الذاكرة المحلية للسحابة
+    async function checkAndMigrate() {
+      const localData = localStorage.getItem('solarGroupsList');
+      if (!localData || localStorage.getItem('migrationDone') === 'true') return false;
+      try {
+        const parsed = JSON.parse(localData);
+        if (parsed && parsed.length > 0) {
+          if (confirm("تم العثور على مجموعات مخزنة محلياً في جهازك. هل تريد نقلها إلى السحابة (Firebase) لتصبح محفوظة بشكل دائم؟")) {
+            await db.collection("groupsData").doc("mainList").set({ items: parsed });
+            localStorage.setItem('migrationDone', 'true');
+            alert("تم نقل مجموعاتك بنجاح إلى السحابة!");
+            return true;
+          }
+        }
+      } catch(e) {
+        console.error("خطأ في عملية النقل:", e);
+      }
+      return false;
+    }
+
+    // جلب البيانات من سحابة Firebase أو الهجرة التلقائية
     function loadGroupsFromCloud() {
-      db.collection("groupsData").doc("mainList").get().then((doc) => {
+      db.collection("groupsData").doc("mainList").get().then(async (doc) => {
         if (doc.exists) {
           groups = doc.data().items || [];
           renderList();
         } else {
-          groups = [];
-          renderList();
+          const migrated = await checkAndMigrate();
+          if (migrated) {
+            loadGroupsFromCloud();
+          } else {
+            groups = JSON.parse(localStorage.getItem('solarGroupsList')) || [];
+            renderList();
+          }
         }
       }).catch((error) => {
-        console.error("خطأ في جلب البيانات:", error);
-        // التراجع للذاكرة المحلية في حال انقطاع النت
+        console.error("خطأ في الاتصال السحابي:", error);
         groups = JSON.parse(localStorage.getItem('solarGroupsList')) || [];
         renderList();
       });
     }
 
-    // حفظ البيانات في سحابة Firebase والمحلية كاحتياط
     function saveGroupsData() {
       localStorage.setItem('solarGroupsList', JSON.stringify(groups));
-      db.collection("groupsData").doc("mainList").set({
-        items: groups
-      }).catch((error) => {
+      db.collection("groupsData").doc("mainList").set({ items: groups }).catch((error) => {
         console.error("خطأ في الحفظ السحابي:", error);
       });
     }
@@ -296,7 +326,7 @@
       savePostText(); autoResize(textarea);
     }
 
-    function autoResize(element) { element.style.height = 'auto'; element.style.height = (element.scrollHeight + 2) + 'px'; }
+    function autoResize(element) { element.style.height = 'auto'; element.style.height = (element.scrollHeight) + 'px'; }
 
     function savePostText() { localStorage.setItem('savedPostText', document.getElementById('postEditor').value); }
     
@@ -312,7 +342,7 @@
 
     function clearText() {
       const textarea = document.getElementById('postEditor');
-      if (textarea.value.length === 0) return;
+      if (!textarea.value.trim()) return;
       showCustomConfirm('هل أنت متأكد من إزالة نص المنشور الحالي؟', () => {
         textarea.value = ''; savePostText(); autoResize(textarea); textarea.focus();
       });
@@ -320,9 +350,9 @@
 
     function exportData() {
       if (groups.length === 0) return alert('القائمة فارغة لتصديرها!');
-      const blob = new Blob([JSON.stringify(groups, null, 2)], { type: "application/json" });
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(groups, null, 2));
       const downloadAnchor = document.createElement('a');
-      downloadAnchor.setAttribute("href", URL.createObjectURL(blob));
+      downloadAnchor.setAttribute("href", dataStr);
       downloadAnchor.setAttribute("download", "groups_backup.json");
       document.body.appendChild(downloadAnchor);
       downloadAnchor.click();
@@ -337,13 +367,7 @@
       const reader = new FileReader();
       reader.onload = function(e) {
         try {
-          let fileContent = e.target.result || '';
-          if (fileContent.includes('data:')) fileContent = fileContent.substring(fileContent.indexOf(',') + 1);
-          if (fileContent.includes('%5B')) { try { fileContent = decodeURIComponent(fileContent); } catch(e){} }
-          const arrStart = fileContent.indexOf('['), arrEnd = fileContent.lastIndexOf(']');
-          if (arrStart === -1 || arrEnd === -1) throw new Error('الملف معطوب');
-          const imported = JSON.parse(fileContent.substring(arrStart, arrEnd + 1));
-          
+          const imported = JSON.parse(e.target.result);
           if (Array.isArray(imported)) {
             showCustomConfirm(`تم العثور على ${imported.length} مجموعة.\nهل تريد استبدال القائمة الحالية؟\n(موافق = استبدال | إلغاء = دمج)`, () => {
               groups = imported;
@@ -357,8 +381,8 @@
           } else alert('ملف غير صالح!');
         } catch (err) { alert('حدث خطأ أثناء قراءة الملف.'); }
       };
-      reader.onloadend = function() { document.getElementById('importFile').value = ''; };
       reader.readAsText(file);
+      event.target.value = ''; 
     }
 
     function addNewGroup() {
@@ -498,9 +522,7 @@
       const editor = document.getElementById('postEditor');
       if (savedText) { editor.value = savedText; autoResize(editor); }
       
-      // جلب البيانات من سحابة Firebase فور فتح التطبيق
       loadGroupsFromCloud();
-      
       document.getElementById('currentYear').textContent = new Date().getFullYear();
     };
   </script>
