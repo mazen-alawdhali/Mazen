@@ -199,7 +199,7 @@
       <div class="backup-row">
         <button class="btn-backup" onclick="exportData()">💾 تصدير المجموعات</button>
         <button class="btn-backup" onclick="triggerImport()">📂 استيراد المجموعات</button>
-        <input type="file" id="importFile" style="display:none" accept=".json" onchange="importData(event)">
+        <input type="file" id="importFile" style="display:none" accept=".json,application/json,text/plain" onchange="importData(event)">
       </div>
     </div>
 
@@ -249,13 +249,13 @@
     let groups = [];
     let currentFilter = 'all';
 
-    // دالة الهجرة الآمنة من الذاكرة المحلية للسحابة
+    // دالة الهجرة الآمنة من الذاكرة المحلية للجوال للسحابة
     async function checkAndMigrate() {
       const localData = localStorage.getItem('solarGroupsList');
       if (!localData || localStorage.getItem('migrationDone') === 'true') return false;
       try {
         const parsed = JSON.parse(localData);
-        if (parsed && parsed.length > 0) {
+        if (parsed && Array.isArray(parsed) && parsed.length > 0) {
           if (confirm("تم العثور على مجموعات مخزنة محلياً في جهازك. هل تريد نقلها إلى السحابة (Firebase) لتصبح محفوظة بشكل دائم؟")) {
             await db.collection("groupsData").doc("mainList").set({ items: parsed });
             localStorage.setItem('migrationDone', 'true');
@@ -272,7 +272,7 @@
     // جلب البيانات من سحابة Firebase أو الهجرة التلقائية
     function loadGroupsFromCloud() {
       db.collection("groupsData").doc("mainList").get().then(async (doc) => {
-        if (doc.exists) {
+        if (doc.exists && doc.data().items && doc.data().items.length > 0) {
           groups = doc.data().items || [];
           renderList();
         } else {
@@ -326,7 +326,7 @@
       savePostText(); autoResize(textarea);
     }
 
-    function autoResize(element) { element.style.height = 'auto'; element.style.height = (element.scrollHeight) + 'px'; }
+    function autoResize(element) { element.style.height = 'auto'; element.style.height = (element.scrollHeight + 2) + 'px'; }
 
     function savePostText() { localStorage.setItem('savedPostText', document.getElementById('postEditor').value); }
     
@@ -348,11 +348,12 @@
       });
     }
 
+    // تصدير متوافق 100% مع متصفحات الجوال عبر Blob
     function exportData() {
       if (groups.length === 0) return alert('القائمة فارغة لتصديرها!');
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(groups, null, 2));
+      const blob = new Blob([JSON.stringify(groups, null, 2)], { type: "application/json" });
       const downloadAnchor = document.createElement('a');
-      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("href", URL.createObjectURL(blob));
       downloadAnchor.setAttribute("download", "groups_backup.json");
       document.body.appendChild(downloadAnchor);
       downloadAnchor.click();
@@ -361,14 +362,28 @@
 
     function triggerImport() { document.getElementById('importFile').click(); }
 
+    // دالة استيراد معالجة للبيانات الفارغة والمعطوبة لمنع الشاشة البيضاء والانهيار
     function importData(event) {
       const file = event.target.files[0];
       if (!file) return;
       const reader = new FileReader();
       reader.onload = function(e) {
         try {
-          const imported = JSON.parse(e.target.result);
-          if (Array.isArray(imported)) {
+          let fileContent = (e.target.result || '').trim();
+          if (!fileContent) {
+            return alert('⚠️ ملف النسخة الاحتياطية فارغ ولا يحتوي على بيانات!');
+          }
+          if (fileContent.includes('data:')) fileContent = fileContent.substring(fileContent.indexOf(',') + 1);
+          if (fileContent.includes('%5B')) { try { fileContent = decodeURIComponent(fileContent); } catch(err){} }
+          
+          const arrStart = fileContent.indexOf('['), arrEnd = fileContent.lastIndexOf(']');
+          if (arrStart === -1 || arrEnd === -1) {
+            return alert('⚠️ ملف النسخة الاحتياطية غير صالح أو معطوب!');
+          }
+          
+          const imported = JSON.parse(fileContent.substring(arrStart, arrEnd + 1));
+          
+          if (Array.isArray(imported) && imported.length > 0) {
             showCustomConfirm(`تم العثور على ${imported.length} مجموعة.\nهل تريد استبدال القائمة الحالية؟\n(موافق = استبدال | إلغاء = دمج)`, () => {
               groups = imported;
               saveGroupsData(); renderList(); alert('تم الاستيراد والحفظ السحابي بنجاح!');
@@ -378,11 +393,13 @@
               });
               saveGroupsData(); renderList(); alert('تم دمج المجموعات والحفظ السحابي بنجاح!');
             });
-          } else alert('ملف غير صالح!');
-        } catch (err) { alert('حدث خطأ أثناء قراءة الملف.'); }
+          } else {
+            alert('⚠️ لم يتم العثور على أي مجموعات داخل الملف!');
+          }
+        } catch (err) { alert('حدث خطأ أثناء قراءة الملف. يرجى التأكد من سلامة ملف التصدير.'); }
       };
+      reader.onloadend = function() { document.getElementById('importFile').value = ''; };
       reader.readAsText(file);
-      event.target.value = ''; 
     }
 
     function addNewGroup() {
