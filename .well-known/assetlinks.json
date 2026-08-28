@@ -3,6 +3,6 @@
       "target": {
         "namespace": "android_app",
         "package_name": "app.vercel.mazen_alawdhali.twa",
-        "sha256_cert_fingerprints": ["CC:CF:65:E7:03:06:2B:47:08:74:AC:38:EB:C7:15:D8:96:28:30:D6:96:64:BD:58:D5:FB:DC:AC:3B:57:A9:DC"]
+        "sha256_cert_fingerprints": ["C5:4C:CB:58:84:0F:2E:13:BA:82:4D:41:73:C9:38:F0:A8:0A:8F:DB:FC:FD:57:68:17:31:2D:51:FA:15:46:84"]
       }
     }]
