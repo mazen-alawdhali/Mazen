@@ -1,28 +1,12 @@
 {
-  "id": "/",
-  "name": "حاسبة الطاقة الشمسية الذكية",
-  "short_name": "حاسبة الطاقة",
-  "description": "تطبيق حاسبة الطاقة الشمسية الذكية لحساب الأحمال والبطاريات والألواح الشمسية بدقة عالية.",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#0f172a",
+  "name": "حاسبة ومراقب البطارية ",
+  "short_name": "مراقب البطارية ",
   "icons": [
-    {
-      "src": "/favicon-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png"
-    },
-    {
-      "src": "/apple-touch-icon.png",
-      "sizes": "180x180",
-      "type": "image/png"
-    },
     {
       "src": "/web-app-manifest-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "maskable"
     },
     {
       "src": "/web-app-manifest-512x512.png",
@@ -30,5 +14,8 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ]
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone"
 }
