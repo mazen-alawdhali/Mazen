@@ -1,1 +1,8 @@
-
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.vercel.mazen_alawdhali.twa",
+        "sha256_cert_fingerprints": ["CC:CF:65:E7:03:06:2B:47:08:74:AC:38:EB:C7:15:D8:96:28:30:D6:96:64:BD:58:D5:FB:DC:AC:3B:57:A9:DC"]
+      }
+    }]
