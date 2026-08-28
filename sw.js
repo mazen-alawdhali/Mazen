@@ -1,4 +1,4 @@
-const CACHE_NAME = 'solar-calc-v8-cache'; // تم تغيير الإصدار لـ v8 لإجبار المتصفح على التحديث
+const CACHE_NAME = 'battery-monitor-smart-cache'; 
 const urlsToCache = [
   '/',
   '/index.html',
@@ -7,54 +7,34 @@ const urlsToCache = [
   '/favicon.svg',
   '/favicon-96x96.png',
   '/apple-touch-icon.png',
-  '/web-app-manifest-192x192.png', // تمت إضافتها من المجلد لتعمل أوفلاين
-  '/web-app-manifest-512x512.png'  // تمت إضافتها من المجلد لتعمل أوفلاين
+  '/web-app-manifest-192x192.png',  
+  '/web-app-manifest-512x512.png'   
 ];
 
-// تنصيب التطبيق وتخزين الملفات في ذاكرة الجوال
+// 1. تنصيب التطبيق وتخزين الملفات الأساسية لأول مرة
 self.addEventListener('install', event => {
-  self.skipWaiting(); // إجبار المتصفح على تفعيل النسخة الجديدة فوراً دون انتظار
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('تم حفظ الملفات للعمل أوفلاين بنجاح');
-        return cache.addAll(urlsToCache);
-      })
+    caches.open(CACHE_NAME).then(cache => {
+      console.log('تم تنصيب الكاش الذكي بنجاح');
+      return cache.addAll(urlsToCache);
+    })
   );
 });
 
-// تفعيل السيرفيس وركر ومسح الكاش القديم تلقائياً
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('تم مسح الكاش القديم:', cacheName);
-            return caches.delete(cacheName); // حذف الإصدارات القديمة
-          }
-        })
-      );
-    }).then(() => self.clients.claim()) // السيطرة المباشرة على كل النوافذ المفتوحة للتطبيق
-  );
-});
-
-// اعتراض الطلبات: استراتيجية "الإنترنت أولاً ثم الكاش" (Network First)
+// 2. الكود الذكي (الشبكة أولاً، ثم الذاكرة)
 self.addEventListener('fetch', event => {
   event.respondWith(
     fetch(event.request)
-      .then(response => {
-        // إذا كان هناك اتصال بالإنترنت، قم بتحديث الكاش بالنسخة الأحدث لضمان استمرار التحديثات
-        if (response && response.status === 200 && response.type === 'basic') {
-          const responseToCache = response.clone();
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, responseToCache);
-          });
-        }
-        return response;
+      .then(networkResponse => {
+        // إذا كنت أونلاين: تم جلب أحدث نسخة من السيرفر
+        // نقوم بفتح الذاكرة وتحديثها بالنسخة الجديدة بصمت
+        return caches.open(CACHE_NAME).then(cache => {
+          cache.put(event.request, networkResponse.clone());
+          return networkResponse; // عرض النسخة الجديدة للمستخدم
+        });
       })
       .catch(() => {
-        // في حال انقطاع الإنترنت، قم بجلب النسخة من الكاش الموثوق
+        // إذا كنت أوفلاين (فشل الاتصال): اسحب النسخة المحفوظة من الذاكرة
         return caches.match(event.request);
       })
   );
