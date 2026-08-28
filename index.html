@@ -32,8 +32,8 @@
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="manifest" href="/site.webmanifest">
-    <meta name="theme-color" content="#10b981">
+    <link rel="manifest" href="/manifest.json"> <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#0f172a">
 
     <style id="dynamic-print-style"></style>
 
@@ -59,15 +59,19 @@
         .main-table { width: 100%; max-width: 500px; border-collapse: collapse; margin: 0 auto; border: none; }
         .main-table td { padding: 0; border: none; }
 
-        .container { width: 100%; max-width: 500px; background-color: #1e293b; border-radius: 24px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4); overflow: visible; padding-bottom: 24px; position: relative; margin: 0 auto; }
+        .container { width: 100%; max-width: 500px; background-color: #1e293b; border-radius: 24px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4); overflow: visible; padding-bottom: 24px; position: relative; margin: 0 auto; border: 1px solid rgba(16, 185, 129, 0.25); }
         
-        .lang-toggle { position: absolute; top: 12px; left: 12px; background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.4); color: white; padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; cursor: pointer; backdrop-filter: blur(4px); transition: 0.2s; z-index: 10; }
+        .lang-toggle { position: absolute; top: 12px; left: 12px; background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.4); color: white; padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; cursor: pointer; backdrop-filter: blur(4px); transition: 0.2s; z-index: 10; display: flex; align-items: center; gap: 4px; }
         html[dir="ltr"] .lang-toggle { left: auto; right: 12px; }
         .lang-toggle:hover { background: rgba(255, 255, 255, 0.3); }
 
-        .header { background: linear-gradient(135deg, #059669, #10b981); color: white; text-align: center; padding: 44px 16px 28px; border-top-left-radius: 24px; border-top-right-radius: 24px; }
+        .top-links { display: flex; justify-content: center; gap: 8px; margin-top: 20px; position: relative; z-index: 10; flex-wrap: wrap; }
+        .nav-chip { background: rgba(255, 255, 255, 0.18); border: 1px solid rgba(255, 255, 255, 0.35); color: white; padding: 2px 10px; border-radius: 14px; font-size: 11px; font-weight: bold; cursor: pointer; backdrop-filter: blur(4px); transition: 0.2s; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; line-height: 1.3; }
+        .nav-chip:hover { background: rgba(255, 255, 255, 0.3); }
+
+        .header { background: url('header_balanced_sky_600w.webp') center/cover no-repeat; color: white; text-align: center; padding: 44px 16px 14px; border-top-left-radius: 24px; border-top-right-radius: 24px; }
         
-        .title-box { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.15); padding: 18px 24px; border-radius: 20px; border: 2px solid rgba(255, 255, 255, 0.35); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); backdrop-filter: blur(5px); }
+        .title-box { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(6, 95, 70, 0.6); padding: 18px 24px; border-radius: 20px; border: 2px solid rgba(255, 255, 255, 0.35); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); backdrop-filter: blur(8px); }
         .title-box h1 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.3); color: #ffffff; }
         .title-box .subtitle { margin: 8px 0 0 0; font-size: 14.5px; color: #ffffff; font-weight: 700; letter-spacing: 0.5px; text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
         
@@ -121,6 +125,9 @@
         .btn-add { background-color: #059669; color: white; margin-top: 8px; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2); }
         .btn-export { background-color: #2563eb; color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); }
         .btn-reset { background-color: #dc2626; color: white; margin: 0 auto; width: calc(100% - 32px); font-size: 14px; padding: 12px; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3); }
+
+        .tool-btn-battery { background: linear-gradient(180deg, #1e293b 0%, #000000 100%); border: 1px solid #10b981; color: #10b981; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 4px 10px rgba(0, 0, 0, 0.5); transition: all 0.2s ease; }
+        .tool-btn-battery:hover { border-color: #34d399; color: #34d399; background: linear-gradient(180deg, #334155 0%, #0a0a0a 100%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 0 12px rgba(16, 185, 129, 0.3); }
         
         .appliance-item { background-color: #0f172a; border: 1px solid #334155; border-radius: 14px; padding: 14px; margin-bottom: 14px; scroll-margin-top: 24px; overflow: visible; width: 100%; }
         .appliance-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; gap: 12px; width: 100%; }
@@ -271,7 +278,7 @@
             .print-client-box { background-color: #f8fafc !important; border: 1px solid #cbd5e1 !important; padding: 8px 10px !important; border-radius: 8px; margin-top: 8px !important; font-size: 12pt !important; display: flex; gap: 8px; color: #000000 !important; }
             .print-client-name { color: #2563eb !important; font-weight: bold; }
 
-            .header, .pdf-accordion, button, .btn, .btn-add, .social-links, .solar-footer, .lang-toggle, .gold-badge-container, .visitor-counter-box { display: none !important; }
+            .header, .pdf-accordion, .service-apps-card, button, .btn, .btn-add, .social-links, .solar-footer, .lang-toggle, .top-links, .gold-badge-container, .visitor-counter-box { display: none !important; }
             
             .section { padding: 10px 0 !important; border-bottom: none !important; }
             
@@ -409,6 +416,8 @@
             .engineering-alert { display: block !important; background: #fff5f5 !important; border: 2px solid #dc2626 !important; color: #b91c1c !important; box-shadow: none !important; margin-top: 10px !important; padding: 10px !important; border-radius: 8px !important; font-size: 12pt !important; text-align: start !important; page-break-inside: avoid !important; break-inside: avoid !important; }
             .engineering-alert strong { color: #dc2626 !important; font-weight: bold !important; font-size: 13pt !important; }
             
+            #disclaimerCard { display: block !important; border: 1px solid #f59e0b !important; color: #000000 !important; background: #fffbe2 !important; page-break-inside: avoid !important; }
+
             .print-footer-content { display: block !important; text-align: center; font-size: 10pt; color: #64748b; padding-top: 8px; border-top: 1px solid #cbd5e1; margin-top: 15px; font-weight: bold; }
 
             .hide-hybrid-print { display: none !important; }
@@ -530,7 +539,7 @@
         }
     </style>
 </head>
-<body>
+<body>   <!-- شاشة ترحيبية تظهر مرة واحدة فقط في الجلسة -->   <div id="splash-screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 99999; transition: opacity 0.4s ease, visibility 0.4s ease;">     <svg width="160" height="160" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 160px; height: 160px; flex-shrink: 0; margin-bottom: 20px;">       <defs>         <style>           .sun-rays { transform-origin: 100px 100px; animation: spinRays 4s linear infinite; }           .sun-core { transform-origin: 100px 100px; animation: pulseCore 1.5s ease-in-out infinite alternate; }           @keyframes spinRays { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }           @keyframes pulseCore { from { transform: scale(1); } to { transform: scale(1.08); } }           @media (prefers-reduced-motion: reduce) { .sun-rays, .sun-core { animation: none !important; } }         </style>         <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">           <stop offset="0%" stop-color="#fbbf24" stop-opacity="1" />           <stop offset="100%" stop-color="#fbbf24" stop-opacity="0.2" />         </radialGradient>       </defs>       <rect width="200" height="200" rx="40" fill="#0f172a" />       <g id="solar-panel" opacity="0.95">         <path d="M 40 32 L 160 32 L 152 76 L 48 76 Z" fill="#1e293b" stroke="#115e59" stroke-width="2.5" />         <line x1="100" y1="32" x2="100" y2="76" stroke="#115e59" stroke-width="2" />         <line x1="70" y1="32" x2="65" y2="76" stroke="#115e59" stroke-width="1.5" />         <line x1="130" y1="32" x2="135" y2="76" stroke="#115e59" stroke-width="1.5" />         <line x1="44" y1="54" x2="156" y2="54" stroke="#115e59" stroke-width="1.5" />       </g>       <g id="calculator" transform="translate(0, 12)">         <rect x="48" y="112" width="104" height="52" rx="10" fill="#1e293b" stroke="#115e59" stroke-width="2" />         <rect x="58" y="120" width="84" height="14" rx="4" fill="#0f172a" stroke="#115e59" stroke-width="1" />         <circle cx="68" cy="146" r="4" fill="#115e59" />         <circle cx="84" cy="146" r="4" fill="#115e59" />         <circle cx="100" cy="146" r="4" fill="#115e59" />         <circle cx="116" cy="146" r="4" fill="#fbbf24" />         <circle cx="68" cy="156" r="4" fill="#115e59" />         <circle cx="84" cy="156" r="4" fill="#115e59" />         <circle cx="100" cy="156" r="4" fill="#115e59" />         <circle cx="116" cy="156" r="4" fill="#fbbf24" />       </g>       <g id="sun-element">         <g class="sun-rays" stroke="#fbbf24" stroke-width="3.5" stroke-linecap="round">           <line x1="100" y1="76" x2="100" y2="70" />           <line x1="100" y1="124" x2="100" y2="130" />           <line x1="76" y1="100" x2="70" y2="100" />           <line x1="124" y1="100" x2="130" y2="100" />           <line x1="83" y1="83" x2="78" y2="78" />           <line x1="117" y1="117" x2="122" y2="122" />           <line x1="83" y1="117" x2="78" y2="122" />           <line x1="117" y1="83" x2="122" y2="78" />         </g>         <g class="sun-core">           <circle cx="100" cy="100" r="18" fill="url(#sunGlow)" />           <circle cx="100" cy="100" r="13" fill="#fbbf24" />         </g>       </g>     </svg>      <h2 style="color: #ffffff; font-family: sans-serif; font-size: 1.2rem; font-weight: bold; margin: 0 0 16px 0; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">جار إعداد الحاسبة الذكية</h2>          <div style="width: 140px; height: 5px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden; position: relative;">       <div style="position: absolute; top: 0; left: 0; height: 100%; width: 50%; background: #10b981; border-radius: 4px; animation: loading 1.2s infinite ease-in-out;"></div>     </div>     <style>@keyframes loading { 0% { left: -50%; width: 50%; } 50% { left: 25%; width: 75%; } 100% { left: 100%; width: 50%; } }</style>   </div>    <script>     (function() {       const splash = document.getElementById('splash-screen');       if (sessionStorage.getItem('splash_shown')) {         splash.style.display = 'none';         return;       }       function removeSplash() {         if (splash && splash.style.opacity !== '0') {           splash.style.opacity = '0';           splash.style.visibility = 'hidden';           sessionStorage.setItem('splash_shown', 'true');           setTimeout(function() {             splash.style.display = 'none';             if (splash.parentNode) splash.parentNode.removeChild(splash);           }, 400);         }       }       window.addEventListener('load', function() { setTimeout(removeSplash, 1000); });       setTimeout(removeSplash, 2500);     })();   </script>
 
 <table class="main-table">
     <thead>
@@ -554,7 +563,7 @@
         <tr>
             <td>
                 <div class="container">
-                    <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn">🌐 EN</button>
+                    <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn">EN <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></button>
                     <div class="header">
                         <div class="title-box">
                             <h1 data-i18n="appTitle">حاسبة الطاقة الشمسية الذكية</h1>
@@ -834,6 +843,9 @@
                                     <div id="ent-warning-container"></div>
                                 </div>
                             </div>
+                            <div id="disclaimerCard" class="engineering-alert" style="display: none; margin-top: 14px; background: rgba(245, 158, 11, 0.08); border: 1px solid #f59e0b; color: #e2e8f0; font-size: 12.5px; line-height: 1.6; text-align: start;" data-i18n="disclaimerNote">
+                                💡 <strong>تنبيه هام:</strong> تعتبر مخرجات هذه الحاسبة نموذج محاكاة تقديري هندسي للمساعدة في التخطيط الأولي للمنظومة الشمسية. للحصول على أداء ميداني مضمون ولتراعي ظروف الموقع الفعلية وجودة التركيب، يُنصح دائماً بمراجعة التقييم النهائي مع مهندس أو فني طاقة شمسية مختص.
+                            </div>
                         </div>
                     </div>
 
@@ -857,7 +869,15 @@
                         </div>
                     </div>
 
-                    <button class="btn btn-reset" onclick="resetToDefault()" data-i18n="resetData">⚠️ تصفير البيانات (مسح كل شيء)</button>
+                    <button class="btn btn-reset" onclick="resetToDefault()" data-i18n="resetData">⚠️ تصفير البيانات</button>
+
+                    <div class="service-apps-card" style="margin: 20px auto 16px auto; width: calc(100% - 32px); background-color: rgba(15, 23, 42, 0.4); border: 1px solid #334155; border-radius: 16px; padding: 16px;">
+                        <div style="font-size: 14.5px; font-weight: 700; color: #10b981; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;" data-i18n="serviceAppsTitle">🛠️ تطبيقات خدمية</div>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <a href="https://solar-panels-pro.vercel.app/" target="_blank" class="btn" style="flex: 1; font-size: 13.5px; padding: 12px; text-decoration: none; background: rgba(37, 99, 235, 0.1); border: 1px solid #2563eb; color: #60a5fa; min-width: 130px;" id="pnlNavBtn" data-i18n="pnlNavBtn">☀️ حاسبة الألواح</a>
+                            <a href="https://battery-monitor-pro.vercel.app/" target="_blank" class="btn tool-btn-battery" style="flex: 1; font-size: 13.5px; padding: 12px; text-decoration: none; min-width: 130px; margin-top: 0;" id="battNavBtn" data-i18n="battNavBtn">🔋 حاسبة البطارية</a>
+                        </div>
+                    </div>
 
                     <footer class="solar-footer">
                         <p class="copyright-text" data-i18n="copyright">تصميم وتطوير <span class="author-name">مازن العوذلي</span> &copy; 2026</p>
@@ -881,7 +901,7 @@
                               <path d="M60 10 L110 25 C110 80 60 135 60 140 C60 135 10 80 10 25 Z" fill="url(#goldFill)" stroke="url(#goldGradient)" stroke-width="3" stroke-linejoin="round"/>
                               <circle cx="60" cy="34" r="7" fill="url(#goldGradient)" />
                               <path d="M60 18 L60 23 M46 25 L50 29 M74 25 L70 29 M38 34 L44 34 M82 34 L76 34 M46 43 L50 39 M74 43 L70 39" stroke="url(#goldGradient)" stroke-width="2.5" stroke-linecap="round" />
-                              <text x="60" y="70" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="900" fill="url(#goldGradient)" text-anchor="middle" letter-spacing="1">V9 PRO MAX</text>
+                              <text x="60" y="70" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="900" fill="url(#goldGradient)" text-anchor="middle" letter-spacing="0.3">V9 PRO MAX</text>
                               <path d="M26 88 L46 92 L42 112 L22 108 Z" fill="none" stroke="url(#goldGradient)" stroke-width="1.5" stroke-linejoin="round"/>
                               <path d="M33 89 L29 109 M40 91 L36 111 M24 95 L44 99 M23 101 L43 105" stroke="url(#goldGradient)" stroke-width="1"/>
                               <path d="M94 88 L74 92 L78 112 L98 108 Z" fill="none" stroke="url(#goldGradient)" stroke-width="1.5" stroke-linejoin="round"/>
@@ -920,11 +940,11 @@
 <div class="modal-overlay" id="customModal">
     <div class="modal-container">
         <div class="modal-icon" id="modalIcon">⚠️</div>
-        <div class="modal-title" id="modalTitle">تأكيد مسح البيانات</div>
-        <div class="modal-message" id="modalMessage">هل أنت متأكد من مسح جميع الأجهزة والبيانات المدخلة؟ لا يمكن التراجع عن هذه الخطوة.</div>
+        <div class="modal-title" id="modalTitle">تأكيد تصفير البيانات</div>
+        <div class="modal-message" id="modalMessage">هل أنت متأكد من إعادة تصفير جميع المدخلات والأجهزة للوضع الافتراضي؟</div>
         <div class="modal-buttons">
             <button class="modal-btn modal-btn-cancel" onclick="closeModal()" id="modalCancelBtn">إلغاء</button>
-            <button class="modal-btn modal-btn-confirm" onclick="confirmResetAction()" id="modalConfirmBtn">نعم، امسح البيانات</button>
+            <button class="modal-btn modal-btn-confirm" onclick="confirmResetAction()" id="modalConfirmBtn">نعم، صفر البيانات</button>
             <button class="modal-btn modal-btn-ok" style="display: none;" onclick="closeModal()" id="modalOkBtn">موافق</button>
         </div>
     </div>
@@ -992,6 +1012,8 @@ if ('serviceWorker' in navigator) {
     const dict = {
         ar: {
             appTitle: "حاسبة الطاقة الشمسية الذكية", appSubtitle: "إصدار احترافي متكامل",
+            pnlNavBtn: "☀️ حاسبة الألواح", battNavBtn: "🔋 حاسبة البطارية",
+            serviceAppsTitle: "🛠️ تطبيقات خدمية",
             sysSettings: "⚡ إعدادات المنظومة الهندسية:", sysVoltage: "جهد النظام (Volt):",
             volt12: "12 فولت", volt24: "24 فولت", volt48: "48 فولت",
             panelWattsLabel: "قدرة اللوح المستهدف (W):", sunHoursLabel: "ساعات ذروة الشمس:",
@@ -1044,8 +1066,9 @@ if ('serviceWorker' in navigator) {
             cablesResTitle: "مواصفات الكابلات والقواطع (هام جداً):",
             battCableRes: "كابل وقاطع البطارية:", pvCableRes: "كابل وقاطع الألواح:", acCableRes: "كابل وقاطع الأحمال (AC):",
             cableDisclaimer: "⚠️ توصية هندسية إرشادية (إخلاء مسؤولية): المقاسات الموضحة تعتمد على كابلات نحاسية معتمدة ومطابقة للمواصفات. يرجى مراجعة الفني المختص لمراعاة ظروف ومسافات التوصيل الميدانية الفعليّة.",
+            disclaimerNote: "💡 <strong>تنبيه هام:</strong> تعتبر مخرجات هذه الحاسبة نموذج محاكاة تقديري هندسي للمساعدة في التخطيط الأولي للمنظومة الشمسية. للحصول على أداء ميداني مضمون ولتراعي ظروف الموقع الفعلية وجودة التركيب، يُنصح دائماً بمراجعة التقييم النهائي مع مهندس أو فني طاقة شمسية مختص.",
 
-            resetData: "⚠️ تصفير البيانات (مسح كل شيء)",
+            resetData: "⚠️ تصفير البيانات",
             copyright: 'تصميم وتطوير <span class="author-name">مازن العوذلي</span> &copy; 2026',
             tagline: 'تطبيق حاسبة الطاقة الشمسية الذكية',
             goldEdition: 'الإصدار الذهبي',
@@ -1088,6 +1111,8 @@ if ('serviceWorker' in navigator) {
         },
         en: {
             appTitle: "Smart Solar Calculator", appSubtitle: "Professional Integrated Edition",
+            pnlNavBtn: "☀️ Panels Calc", battNavBtn: "🔋 Battery Calc",
+            serviceAppsTitle: "🛠️ Service Apps",
             sysSettings: "⚡ System Engineering Settings:", sysVoltage: "System Voltage (Volt):",
             volt12: "12 Volts", volt24: "24 Volts", volt48: "48 Volts",
             panelWattsLabel: "Target Panel Power (W):", sunHoursLabel: "Peak Sun Hours:",
@@ -1140,8 +1165,9 @@ if ('serviceWorker' in navigator) {
             cablesResTitle: "Cables & Breakers Specs (CRITICAL):",
             battCableRes: "Battery Cable & Breaker:", pvCableRes: "PV Array Cable & Breaker:", acCableRes: "AC Load Cable & Breaker:",
             cableDisclaimer: "⚠️ Engineering Disclaimer: Suggested sizes rely on certified pure copper cables. Please consult a qualified technician to verify field installation conditions.",
+            disclaimerNote: "💡 <strong>Important Note:</strong> The output of this calculator is an estimated engineering simulation model for initial planning. For guaranteed field performance and to account for site-specific installation conditions, always review the final design with a qualified solar technician.",
 
-            resetData: "⚠️ Reset Data (Clear All)",
+            resetData: "⚠️ Reset All Data",
             copyright: 'Designed & Developed by <span class="author-name">Mazen Al-Awdhali</span> &copy; 2026',
             tagline: 'Smart Solar Calculator App',
             goldEdition: 'Gold Edition',
@@ -1282,7 +1308,8 @@ if ('serviceWorker' in navigator) {
         const t = dict[window.currentLang];
         document.documentElement.lang = window.currentLang;
         document.documentElement.dir = window.currentLang === 'ar' ? 'rtl' : 'ltr';
-        if(document.getElementById('langBtn')) document.getElementById('langBtn').innerText = window.currentLang === 'ar' ? '🌐 EN' : '🌐 AR';
+        const globeSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>';
+        if(document.getElementById('langBtn')) document.getElementById('langBtn').innerHTML = window.currentLang === 'ar' ? 'EN ' + globeSvg : 'AR ' + globeSvg;
         
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
@@ -1478,7 +1505,7 @@ if ('serviceWorker' in navigator) {
         }
     });
 
-    window.startApp = function() {
+    window.startApp = function() {         const totalImages = 6;         const randomNum = Math.floor(Math.random() * totalImages) + 1;         const headerEl = document.querySelector('.header');         if (headerEl) headerEl.style.backgroundImage = `url('header_bg_${randomNum}.webp')`;
         try {
             try { const data = localStorage.getItem("solar_appliances_data_v11"); appliances = data ? JSON.parse(data) : []; } catch(e) { appliances = []; }
             
@@ -1790,20 +1817,15 @@ if ('serviceWorker' in navigator) {
     };
 
     function getCableSizeWithVoltageDrop(current, distance, voltage) {
-        const rho = 0.0175; // مقاومة النحاس
-        const maxDropPercent = 0.03; // أقصى هبوط جهد مسموح به (%3)
+        const rho = 0.0175;
+        const maxDropPercent = 0.03;
         const allowableDropV = voltage * maxDropPercent;
         
         let requiredAreaByVD = 0;
         if (distance > 0 && voltage > 0) {
-            // معادلة هبوط الجهد الفعلية
-            // المرتبطة بالمسافة:
-            // S = (2 * L * I * rho) / Delta V
             requiredAreaByVD = (2 * distance * current * rho) / allowableDropV;
         }
         
-        // التحقق من التحمل الحراري
-        // (Ampacity)
         let thermalArea = 4;
         if (current <= 30) thermalArea = 4;
         else if (current <= 50) thermalArea = 10;
@@ -2501,6 +2523,15 @@ if ('serviceWorker' in navigator) {
                 cablesWrapperEl.style.display = "none";
             }
         }
+
+        const disclaimerEl = document.getElementById("disclaimerCard");
+        if (disclaimerEl) {
+            if (totalDailyWh > 0) {
+                disclaimerEl.style.display = "block";
+            } else {
+                disclaimerEl.style.display = "none";
+            }
+        }
     };
 
     window.openAlertModal = function(title, message) {
@@ -2527,14 +2558,14 @@ if ('serviceWorker' in navigator) {
         
         if (window.currentLang === 'en') {
             document.getElementById('modalTitle').innerText = 'Confirm Data Reset';
-            document.getElementById('modalMessage').innerText = 'Are you sure you want to clear all appliances and data? This action cannot be undone.';
+            document.getElementById('modalMessage').innerText = 'Are you sure you want to reset all inputs and appliances to default? This action cannot be undone.';
             document.getElementById('modalCancelBtn').innerText = 'Cancel';
-            document.getElementById('modalConfirmBtn').innerText = 'Yes, Clear Data';
+            document.getElementById('modalConfirmBtn').innerText = 'Yes, Reset Data';
         } else {
-            document.getElementById('modalTitle').innerText = 'تأكيد مسح البيانات';
-            document.getElementById('modalMessage').innerText = 'هل أنت متأكد من مسح جميع الأجهزة والبيانات المدخلة؟ لا يمكن التراجع عن هذه الخطوة.';
+            document.getElementById('modalTitle').innerText = 'تأكيد تصفير البيانات';
+            document.getElementById('modalMessage').innerText = 'هل أنت متأكد من إعادة تصفير جميع المدخلات والأجهزة للوضع الافتراضي؟';
             document.getElementById('modalCancelBtn').innerText = 'إلغاء';
-            document.getElementById('modalConfirmBtn').innerText = 'نعم، امسح البيانات';
+            document.getElementById('modalConfirmBtn').innerText = 'نعم، صفر البيانات';
         }
         
         modal.classList.add('active');
