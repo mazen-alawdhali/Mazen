@@ -13,13 +13,12 @@
             --bg-primary: #0f172a;
             --bg-card: #1e293b;
             --bg-card-hover: #334155;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+            --text-main: #ffffff;
+            --text-muted: #e2e8f0;
             --accent-green: #10b981;
             --accent-green-hover: #059669;
             --accent-blue: #3b82f6;
             --accent-amber: #f59e0b;
-            --accent-red: #ef4444;
             --border-color: #334155;
             --radius-lg: 16px;
             --radius-md: 8px;
@@ -42,10 +41,38 @@
             justify-content: center;
         }
 
+        /* Language Toggle Button */
+        .lang-toggle { 
+            position: absolute; 
+            top: 15px; 
+            left: 15px; 
+            background: rgba(255, 255, 255, 0.2); 
+            border: 1px solid rgba(255, 255, 255, 0.4); 
+            color: white; 
+            padding: 6px 12px; 
+            border-radius: 20px; 
+            font-size: 13px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            backdrop-filter: blur(4px); 
+            transition: 0.2s; 
+            z-index: 10; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+        }
+        html[dir="ltr"] .lang-toggle { left: auto; right: 15px; }
+        .lang-toggle:hover { background: rgba(255, 255, 255, 0.3); }
+
+        /* Language display rules */
+        html[lang="ar"] .en-only { display: none !important; }
+        html[lang="en"] .ar-only { display: none !important; }
+
         .container {
             width: 100%;
             max-width: 900px;
             margin: 0 auto;
+            position: relative;
         }
 
         .header {
@@ -53,7 +80,7 @@
             background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
-            padding: 30px 20px;
+            padding: 40px 20px 30px;
             margin-bottom: 25px;
             box-shadow: var(--shadow-glow);
             position: relative;
@@ -159,13 +186,10 @@
             margin-bottom: 20px;
         }
 
-        .content-block:last-child {
-            margin-bottom: 0;
-        }
-
         .content-block h4 {
             color: var(--accent-blue);
             font-size: 1.05rem;
+            margin-top: 15px;
             margin-bottom: 8px;
             display: flex;
             align-items: center;
@@ -180,30 +204,25 @@
 
         .content-block ul {
             list-style-type: none;
-            padding-right: 0;
+            padding: 0;
         }
 
-        .content-block ul li {
-            position: relative;
-            padding-right: 20px;
-            margin-bottom: 8px;
+        /* LTR/RTL support for bullets */
+        html[dir="rtl"] .content-block ul li { padding-right: 20px; margin-bottom: 8px; position: relative; }
+        html[dir="ltr"] .content-block ul li { padding-left: 20px; margin-bottom: 8px; position: relative; }
+        
+        html[dir="rtl"] .content-block ul li::before {
+            content: "•"; color: var(--accent-green); font-weight: bold; font-size: 1.2rem; position: absolute; right: 0; top: -2px;
         }
-
-        .content-block ul li::before {
-            content: "•";
-            color: var(--accent-green);
-            font-weight: bold;
-            font-size: 1.2rem;
-            position: absolute;
-            right: 0;
-            top: -2px;
+        html[dir="ltr"] .content-block ul li::before {
+            content: "•"; color: var(--accent-green); font-weight: bold; font-size: 1.2rem; position: absolute; left: 0; top: -2px;
         }
 
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 15px;
-            margin: 20px 0;
+            margin: 15px 0 20px 0;
         }
 
         .image-container {
@@ -212,6 +231,7 @@
             padding: 12px;
             border-radius: var(--radius-md);
             border: 1px solid var(--border-color);
+            margin: 15px 0 20px 0;
         }
 
         .image-container img {
@@ -223,11 +243,19 @@
             object-fit: contain;
         }
 
-        .image-caption {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            margin-top: 8px;
-            font-style: italic;
+        .info-box {
+            padding: 12px 15px;
+            border-radius: 4px var(--radius-md) var(--radius-md) 4px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            background: rgba(59, 130, 246, 0.08);
+            border-right: 4px solid var(--accent-blue);
+        }
+        html[dir="ltr"] .info-box {
+            border-right: none;
+            border-left: 4px solid var(--accent-blue);
+            border-radius: var(--radius-md) 4px 4px var(--radius-md);
         }
 
         .actions-wrapper {
@@ -253,52 +281,24 @@
             border: none;
         }
 
-        .btn-primary {
-            background-color: var(--accent-green);
-            color: #ffffff;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--accent-green-hover);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-        }
-
-        .btn-secondary {
-            background-color: var(--bg-card);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--bg-card-hover);
-            border-color: var(--text-muted);
-        }
+        .btn-primary { background-color: var(--accent-green); color: #ffffff; }
+        .btn-primary:hover { background-color: var(--accent-green-hover); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
+        .btn-secondary { background-color: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); }
+        .btn-secondary:hover { background-color: var(--bg-card-hover); border-color: var(--text-muted); }
 
         .footer {
             text-align: center;
             padding: 20px;
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             border-top: 1px solid var(--border-color);
             margin-top: 40px;
         }
 
         @media (max-width: 600px) {
-            body {
-                padding: 12px;
-            }
-            .header h1 {
-                font-size: 1.4rem;
-            }
-            .section-card {
-                padding: 18px;
-            }
-            .nav-links {
-                grid-template-columns: 1fr;
-            }
-            .gallery-grid {
-                grid-template-columns: 1fr;
-            }
+            body { padding: 12px; }
+            .header h1 { font-size: 1.4rem; }
+            .section-card { padding: 18px; }
         }
     </style>
 </head>
@@ -306,165 +306,589 @@
 
     <div class="container">
 
+        <!-- زر تغيير اللغة -->
+        <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn">
+            EN <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+        </button>
+
         <header class="header">
-            <span class="badge">V9 GOLD PRO</span>
-            <h1>حاسبة الطاقة الشمسية الذكية</h1>
-            <p>الدليل الهندسي الشامل وشرح الاستخدام الميداني المفصل</p>
+            <span class="badge ar-only">الإصدار الذهبي الاحترافي 9</span>
+            <span class="badge en-only">Gold Professional Edition 9</span>
+            
+            <h1 class="ar-only">حاسبة الطاقة الشمسية الذكية</h1>
+            <h1 class="en-only">Smart Solar Calculator</h1>
+            
+            <p class="ar-only">الدليل الهندسي الشامل - دليل المستخدم</p>
+            <p class="en-only">Comprehensive Engineering Guide - User Manual</p>
         </header>
 
         <nav class="nav-index">
-            <h3>📑 الفهرس والتنقل السريع</h3>
-            <ul class="nav-links">
-                <li><a href="#intro">1. التثبيت دون اتصال (PWA)</a></li>
-                <li><a href="#settings">2. إعدادات المنظومة الهندسية</a></li>
-                <li><a href="#hybrid">3. إعدادات النظام الهجين</a></li>
-                <li><a href="#cables">4. الكابلات والقواطع</a></li>
-                <li><a href="#enterprise">5. المنظومات الكبيرة والتجارية</a></li>
-                <li><a href="#appliances">6. جدولة وحصر الأحمال</a></li>
-                <li><a href="#outputs">7. مخرجات التحليل والإنذارات</a></li>
-                <li><a href="#export">8. تصدير التقارير (PDF)</a></li>
+            <h3 class="ar-only">📑 الفهرس</h3>
+            <h3 class="en-only">📑 Index</h3>
+            
+            <ul class="nav-links ar-only">
+                <li><a href="#intro">مقدمة هندسية</a></li>
+                <li><a href="#pwa">الباب الأول: تشغيل الأداة وتثبيتها</a></li>
+                <li><a href="#settings">الباب الثاني: إعدادات المنظومة</a></li>
+                <li><a href="#hybrid">قسم إعدادات النظام الهجين</a></li>
+                <li><a href="#cables">قسم إعدادات الكابلات والقواطع</a></li>
+                <li><a href="#enterprise">قسم المنظومات الكبيرة والمشاريع</a></li>
+                <li><a href="#appliances">الباب الثالث: حصر أحمال الأجهزة</a></li>
+                <li><a href="#outputs">الباب الرابع: مخرجات المنظومة</a></li>
+                <li><a href="#export">الباب الخامس: تصدير التقارير (PDF)</a></li>
+            </ul>
+
+            <ul class="nav-links en-only">
+                <li><a href="#intro">Engineering Introduction</a></li>
+                <li><a href="#pwa">Part 1: Running & Installing the Tool</a></li>
+                <li><a href="#settings">Part 2: System Settings</a></li>
+                <li><a href="#hybrid">Hybrid System Settings</a></li>
+                <li><a href="#cables">Cables & Breakers Settings</a></li>
+                <li><a href="#enterprise">Large Systems & Commercial Settings</a></li>
+                <li><a href="#appliances">Part 3: Appliances Load Schedule</a></li>
+                <li><a href="#outputs">Part 4: Outputs & Engineering Analysis</a></li>
+                <li><a href="#export">Part 5: PDF Report Export</a></li>
             </ul>
         </nav>
 
         <section id="intro" class="section-card">
-            <h2 class="section-title">📱 الباب الأول: تشغيل الأداة وتثبيتها دون اتصال (PWA)</h2>
-            <div class="content-block">
-                <p>تتميز الحاسبة الذكية بأنها تطبيق ويب تقدمي (PWA) يمنحها القدرة على العمل في المواقع الميدانية النائية والمناطق المقطوعة عن الإنترنت بالكامل بكفاءة تامة دون الحاجة لاتصال بالشبكة.</p>
-                
-                <h4>خطوات التثبيت التفصيلية على الهواتف:</h4>
-                <ul>
-                    <li><strong>الخطوة 1:</strong> فتح قائمة المتصفح واختيار "التثبيت وإنشاء اختصار" (Install App).</li>
-                    <li><strong>الخطوة 2:</strong> تأكيد التثبيت في النافذة المنبثقة للوصول السريع من الشاشة الرئيسية.</li>
-                </ul>
+            <h2 class="section-title ar-only">مقدمة هندسية</h2>
+            <h2 class="section-title en-only">Engineering Introduction</h2>
+            
+            <div class="content-block ar-only">
+                <p>صممت حاسبة الطاقة الشمسية الذكية إصدار Pro لتكون أداة ميدانية متكاملة لمهندسي وفنيي الطاقة المتجددة. تهدف الأداة إلى تحويل جداول الأحمال ومصادر الطاقة إلى مخرجات هندسية دقيقة لحساب سعات البطاريات، أعداد الألواح، تيارات منظمات الشحن (MPPT) وقدرات الإنفرتر الحقيقية، مع دعم كامل للأنظمة المستقلة والهجينة (Hybrid)، ومراعاة مفقودات النظام وتيارات الإقلاع للأحمال الثقيلة. كما تتضمن الحاسبة قسماً متقدماً لتقدير مقاسات الكابلات وحمايات القواطع بدقة مع مراعاة المسافات وطبيعة المناخ، وقسماً خاصاً للمنظومات الكبيرة والمشاريع التجارية مع دعم معمارية الجهد العالي (High Voltage) وأنظمة ثلاثية الأطوار (3-Phase) لتلبية متطلبات المباني والمصانع الكبرى.</p>
+            </div>
+            
+            <div class="content-block en-only">
+                <p>The Smart Solar Calculator Pro is designed as a comprehensive field tool for renewable energy engineers and technicians. It aims to convert load schedules and power sources into precise engineering outputs to calculate battery capacities, panel quantities, MPPT charge currents, and true inverter capacities. It fully supports both Off-Grid and Hybrid systems, accounting for system losses and heavy load surge currents. The calculator also features an advanced section for estimating cable sizes and breaker protections accurately based on distance and climate, and a dedicated section for large commercial projects supporting High Voltage (HV) and 3-Phase architectures to meet the demands of large buildings and factories.</p>
+            </div>
+        </section>
 
-                <div class="gallery-grid">
-                    <div class="image-container">
-                        <img src="images/pwa-step1.jpg" alt="خيار التثبيت من قائمة المتصفح">
-                        <div class="image-caption">الشكل (1-أ): فتح القائمة واختيار "التثبيت وإنشاء اختصار"</div>
-                    </div>
-                    <div class="image-container">
-                        <img src="images/pwa-step2.jpg" alt="نافذة تأكيد تثبيت التطبيق">
-                        <div class="image-caption">الشكل (1-ب): تأكيد تثبيت الأيقونة على الشاشة الرئيسية</div>
-                    </div>
+        <section id="pwa" class="section-card">
+            <h2 class="section-title ar-only">الباب الأول : تشغيل الأداة وتثبيتها دون اتصال (PWA Installation)</h2>
+            <h2 class="section-title en-only">Part 1: Running & Installing the Tool (PWA Offline)</h2>
+            
+            <div class="content-block ar-only">
+                <p>تتميز الحاسبة بأنها تطبيق ويب تقدمي ( PWA ) ؛ مما يمنحها القدرة على العمل في المواقع الميدانية النائية والمناطق المقطوعة من الإنترنت بالكامل بكفاءة تامة.</p>
+            </div>
+            <div class="content-block en-only">
+                <p>The calculator features Progressive Web App (PWA) capability, allowing it to work efficiently in remote field locations and completely offline areas without requiring an internet connection.</p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="image-container">
+                    <!-- Note the data-base-src attribute used for switching languages -->
+                    <img class="lang-img" data-base-src="images/pwa-step1" src="images/pwa-step1.jpg" alt="PWA Step 1">
                 </div>
+                <div class="image-container">
+                    <img class="lang-img" data-base-src="images/pwa-step2" src="images/pwa-step2.jpg" alt="PWA Step 2">
+                </div>
+            </div>
+            
+            <div class="content-block ar-only">
+                <h4>خطوات التثبيت على الهواتف الذكية متصفح Chrome كمثال</h4>
+                <ul>
+                    <li><strong>1. فتح القائمة الجانبية:</strong> من أعلى المتصفح ، قم بالضغط على خيارات المتصفح الثلاث نقاط الجانبية).</li>
+                    <li><strong>2. اختيار التثبيت :</strong> ابحث عن خيار التثبيت وإنشاء اختصار" أو "Install app".</li>
+                    <li><strong>3. تأكيد التثبيت :</strong> ستظهر لك نافذة منبثقة تحمل اسم الأيقونة الرسمية للحاسبة ورابطها، اضغط على "تثبيت" أو "Install".</li>
+                    <li><strong>4. التشغيل المباشر :</strong> سيقوم النظام بمعالجة الطلب وإضافة أيقونة الحاسبة الذكية مباشرة إلى شاشتك الرئيسية. يمكنك الآن إغلاق المتصفح وفتح الأداة كبرنامج مستقل بالكامل يعمل دون الحاجة لاتصال بالإنترنت Offline Mode) ، معتمداً على التخزين المحلي لبياناتك.</li>
+                </ul>
+            </div>
+            <div class="content-block en-only">
+                <h4>Installation Steps on Smartphones (Chrome Browser as an example)</h4>
+                <ul>
+                    <li><strong>1. Open Browser Menu:</strong> From the top of the browser, tap on the browser options (the three dots).</li>
+                    <li><strong>2. Select Install:</strong> Look for the option "Install app" or "Add to Home screen".</li>
+                    <li><strong>3. Confirm Installation:</strong> A popup window will appear with the official app icon and link, click "Install".</li>
+                    <li><strong>4. Direct Launch:</strong> The system will process the request and add the Smart Calculator icon directly to your home screen. You can now close the browser and open the tool as a fully independent program working without an internet connection (Offline Mode), relying on your local storage.</li>
+                </ul>
             </div>
         </section>
 
         <section id="settings" class="section-card">
-            <h2 class="section-title">⚙️ الباب الثاني: إعدادات المنظومة الهندسية</h2>
-            <div class="content-block">
-                <p>يمثل هذا الجزء المدخلات الحاكمة والمؤثرة مباشرة في معادلات التصميم الإجمالية للمنظومة:</p>
-                <ul>
-                    <li><strong>جهد النظام (Volt):</strong> اختيار الجهد المناسب (12V، 24V، أو 48V) لتقليل سماكة الكابلات.</li>
-                    <li><strong>قدرة اللوح المستهدف (W):</strong> إدخال قدرة اللوح بالواط (مثال: 450W) لتحديد أعداد الألواح.</li>
-                    <li><strong>ساعات ذروة الشمس ومناخ الألواح:</strong> مراعاة ساعات الإشعاع والأداء الحراري.</li>
-                    <li><strong>نسبة حماية البطارية (DoD):</strong> ضبط عمق التفريغ المسموح به لحماية الخلايا.</li>
-                </ul>
+            <h2 class="section-title ar-only">الباب الثاني: إعدادات المنظومة الهندسية:</h2>
+            <h2 class="section-title en-only">Part 2: System Engineering Settings:</h2>
+            
+            <div class="content-block ar-only">
+                <p>يمثل هذا الجزء المدخلات الحاكمة والمؤثرة في معادلات التصميم الإجمالية للمنظومة:</p>
+            </div>
+            <div class="content-block en-only">
+                <p>This section represents the governing inputs that directly influence the overall design equations of the system:</p>
+            </div>
 
-                <div class="image-container">
-                    <img src="images/system-settings.jpg" alt="إعدادات المنظومة الهندسية">
-                    <div class="image-caption">الشكل (2): واجهة إعدادات المنظومة الهندسية الأساسية</div>
-                </div>
+            <div class="image-container">
+                <img class="lang-img" data-base-src="images/system-settings" src="images/system-settings.jpg" alt="System Settings">
+            </div>
+
+            <div class="content-block ar-only">
+                <ul>
+                    <li><strong>جهد النظام :</strong> خيار حرج يُحدد طبيعة ربط البطاريات (توالي توازي). تتيح لك الحاسبة الاختيار بين الأنظمة القياسية (12) فولت 24 فولت، 48 فولت). اختيار الجهد الصحيح يقلل من سماكة الكابلات ويحد من مفقودات التيار.</li>
+                    <li><strong>قدرة اللوح المستهدف :</strong> الخانة المخصصة لإدخال تيار اللوح المراد استخدامه بالواط مثال: 450 واط). بناءً على هذه القيمة، يتم تقسيم مخرجات المصفوفة الإجمالية المعرفة عدد الألواح الفعلي.</li>
+                    <li><strong>ساعات ذروة الشمس :</strong> عدد الساعات الفعالة التي تنتج فيها الألواح كامل طاقتها الاسمية بناءً على الموقع الجغرافي للمشروع المعدل القياسي الشائع هندسياً يتراوح بين 5 إلى 6 ساعات).</li>
+                    <li><strong>مناخ الألواح الأداء الحراري) :</strong> خیار هندسي يراعي التأثير الحراري الهامشي على كفاءة الخلايا الشمسية لضمان عدم نقص الإنتاج ميدانياً:
+                        <ul>
+                            <li><strong>1. مناخ معتدل :</strong> يعتمد في الظروف البيئية القياسية والمناطق المعتدلة.</li>
+                            <li><strong>2. مناخ حار جداً :</strong> يعتمد في المناطق الصحراوية والحارة؛ حيث ترفع الخوارزمية قدرة مصفوفة الألواح تلقائياً لتعويض الفقد الناتج عن ارتفاع درجة حرارة الألواح.</li>
+                        </ul>
+                    </li>
+                    <li><strong>نسبة حماية البطارية :</strong> تعبر هذه الخانة عن أقصى نسبة مسموح بها لتفريغ طاقة البطارية، مع الإبقاء على نسبة متبقية كاحتياطي أمان لحماية خلايا البطارية وإطالة عمرها الافتراضي. المفهوم الهندسي: عند إدخال 80 ، تقوم الحاسبة باحتساب 80% فقط من سعة البطارية للاستخدام الفعلي، وتخصيص %20% كحد حماية يمنع التفريغ العميق.
+                        <br><br><strong>القيم الموصى بها:</strong>
+                        <ul>
+                            <li>بطاريات الليثيوم (LiFePO4): يُوصى بضبط القيمة بين 80 و 90% استفادة قصوى مع أمان عال).</li>
+                            <li>بطاريات الجيل والجل / أنبوبي Lead Acid / GEL): يُوصى بضبط القيمة عند 50% لمنع تدهور البطارية السريع.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="content-block en-only">
+                <ul>
+                    <li><strong>System Voltage:</strong> A critical option determining battery connection (series/parallel). Choose between standard systems (12V, 24V, 48V). The correct voltage reduces cable thickness and current losses.</li>
+                    <li><strong>Target Panel Power (W):</strong> Field to input the target solar panel wattage (e.g., 450W). Based on this, the total array output is divided to determine the actual number of panels.</li>
+                    <li><strong>Peak Sun Hours:</strong> The effective hours panels produce their nominal power based on geographical location (engineering standard is usually 5 to 6 hours).</li>
+                    <li><strong>Panel Climate (Thermal Performance):</strong> An engineering option considering thermal degradation on solar cell efficiency to ensure field output doesn't drop:
+                        <ul>
+                            <li><strong>1. Moderate Climate:</strong> Used in standard environmental conditions.</li>
+                            <li><strong>2. Very Hot Climate:</strong> Used in desert and hot regions; the algorithm automatically increases the array capacity to compensate for power loss due to panel heating.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Battery Protection Rate (DoD):</strong> Represents the maximum allowable Depth of Discharge, keeping the remainder as a safety reserve to protect battery cells and extend their lifespan. Engineering concept: entering 80 means the calculator uses only 80% of battery capacity for actual load, reserving 20% to prevent deep discharge.
+                        <br><br><strong>Recommended Values:</strong>
+                        <ul>
+                            <li>Lithium Batteries (LiFePO4): 80% to 90% (Maximum utilization with high safety).</li>
+                            <li>Lead Acid / GEL Batteries: 50% (Prevents rapid battery degradation).</li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </section>
 
         <section id="hybrid" class="section-card">
-            <h2 class="section-title">🔌 الباب الثالث: إعدادات النظام الهجين (Hybrid)</h2>
-            <div class="content-block">
-                <p>تستفيد الحاسبة من ساعات توفر الشبكة أو المولد نهاراً وليلاً لتخفيض حجم وسعة الألواح والبطاريات المطلوبة.</p>
+            <h2 class="section-title ar-only">قسم إعدادات النظام الهجين (Hybrid System):</h2>
+            <h2 class="section-title en-only">Hybrid System Settings:</h2>
+            
+            <div class="content-block ar-only">
+                <p>يستخدم هذا القسم عندما يكون الموقع مزوداً بمصدر طاقة خارجي (مثل شبكة الكهرباء العمومية أو مولد كهربائي) إلى جانب الألواح الشمسية والبطاريات. تتيح لك الحاسبة خيار الاستفادة من ساعات توفر التيار الخارجي لتخفيض حجم وسعة الألواح والبطاريات المطلوبة، مما يقلل التكلفة الإجمالية للمنظومة.</p>
+            </div>
+            <div class="content-block en-only">
+                <p>Used when the site is equipped with an external power source (like the national grid or a generator) alongside solar panels and batteries. The calculator utilizes grid availability hours to reduce the required panel and battery sizes, lowering overall system costs.</p>
+            </div>
 
-                <div class="image-container">
-                    <img src="images/hybrid-settings.jpg" alt="إعدادات النظام الهجين">
-                    <div class="image-caption">الشكل (3): خانات إدخال ساعات التغذية وتيار شاحن الشبكة</div>
-                </div>
+            <div class="image-container">
+                <img class="lang-img" data-base-src="images/hybrid-settings" src="images/hybrid-settings.jpg" alt="Hybrid Settings">
+            </div>
+
+            <div class="info-box ar-only">
+                <strong>ملاحظة :</strong> إذا كانت المنظومة مستقلة تماماً عن الشبكة والمولدات (Off Grid)، تُترك جميع هذه الخانات بقيمة 0.
+            </div>
+            <div class="info-box en-only">
+                <strong>Note:</strong> If the system is completely independent of the grid and generators (Off-Grid), leave all these fields at 0.
+            </div>
+            
+            <div class="content-block ar-only">
+                <h4>خانات الإدخال الخاصة بالنظام الهجين:</h4>
+                <ul>
+                    <li><strong>ساعات الشحن نهاراً (ألواح):</strong> أدخل عدد الساعات التي تتوفر فيها الكهرباء العمومية أو المولد خلال فترة النهار للمساعدة في تشغيل الأحمال وتقليل عدد الألواح الشمسية المطلوبة.</li>
+                    <li><strong>ساعات الشحن ليلاً (بطارية):</strong> أدخل عدد الساعات التي تتغذى فيها المنظومة من الكهرباء العمومية أو المولد خلال فترة الليل لشحن البطاريات مباشرة وتقليل سعة التخزين المطلوبة.</li>
+                    <li><strong>تيار شاحن الشبكة (Amps):</strong> أدخل قيمة تيار الشحن بالـ (أمبير المكتوبة على شاحن الإنفرتر الهجين أو المولد، لتعرف الحاسبة مقدار طاقة الشحن المدخولة إلى المنظومة أثناء فترة التشغيل.</li>
+                </ul>
+            </div>
+            <div class="content-block en-only">
+                <h4>Hybrid System Input Fields:</h4>
+                <ul>
+                    <li><strong>Daytime Charge Hours (Panels):</strong> Enter the hours grid/generator power is available during the day to help run loads and reduce the required number of solar panels.</li>
+                    <li><strong>Nighttime Charge Hours (Battery):</strong> Enter the hours the system is powered by the grid/generator at night to charge batteries directly and reduce the required storage capacity.</li>
+                    <li><strong>AC Charge Current (Amps):</strong> Enter the charging current in (Amps) written on the hybrid inverter charger or generator, so the calculator knows the amount of charging energy entering the system during operation.</li>
+                </ul>
             </div>
         </section>
 
         <section id="cables" class="section-card">
-            <h2 class="section-title">📐 الباب الرابع: إعدادات الكابلات والقواطع (الحمايات)</h2>
-            <div class="content-block">
-                <p>تقدير مقاسات الموصلات النحاسية وقواطع الحماية لكل جزئية في المنظومة لضمان الأمان ومواجهة هبوط الجهد.</p>
+            <h2 class="section-title ar-only">قسم إعدادات الكابلات والقواطع</h2>
+            <h2 class="section-title en-only">Cables & Breakers Settings</h2>
+            
+            <div class="content-block ar-only">
+                <p>يُعد هذا القسم أداة هندسية تكميلية متقدمة لتقدير واختيار مقاسات الكابلات النحاسية المناسبة وحمايات القواطع الكهربائية لكل جزء من أجزاء المنظومة بدقة وكعنصر للأمان.</p>
+            </div>
+            <div class="content-block en-only">
+                <p>This section is an advanced supplementary engineering tool for estimating and selecting appropriate copper cable sizes and electrical breaker protections for each part of the system accurately and safely.</p>
+            </div>
 
-                <div class="image-container">
-                    <img src="images/cables-settings.jpg" alt="إعدادات الكابلات والقواطع">
-                    <div class="image-caption">الشكل (4): مسافات كابلات البطارية والأحمال واختيار معامل الأمان</div>
-                </div>
+            <div class="image-container">
+                <img class="lang-img" data-base-src="images/cables-settings" src="images/cables-settings.jpg" alt="Cables Settings">
+            </div>
+
+            <div class="content-block ar-only">
+                <h4>خانات الإدخال بقسم الكابلات و القواطع:</h4>
+                <ul>
+                    <li><strong>مسافة كابل البطارية (متر):</strong> أدخل المسافة الفاصلة (بالأمتار بين بنك البطاريات وبين وحدة الإنفرتر المنظم، لتقوم الحاسبة بتقدير مقاس كابل البطارية الأنسب واختيار القاطع الرئيسي الملائم للتيار العالي.</li>
+                    <li><strong>مسافة كابل الأحمال (متر):</strong> أدخل المسافة بين الإنفرتر ولوحة تووزيع الأحمال المنزلية (AC)، لتقدير مقاس كابل التغذية الاحتياطي وقاطع الحماية المناسب لتيار المخرج.</li>
+                    <li><strong>طبيعة المناخ (للأمان):</strong> تتيح لك القائمة المنسدلة اختيار معامل الأمان الحراري بناءً على بيئة التركيب:
+                        <ul>
+                            <li>1 معتدل (أمان (1.25): المعامل القياسي للظروف البيئية العادية.</li>
+                            <li>2 حار جداً (أمان 1.50) معامل أمان مضاعف للمناطق شديدة الحرارة لتجنب السخونة وارتفاع مقاومة الموصلات.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="content-block en-only">
+                <h4>Cable & Breaker Input Fields:</h4>
+                <ul>
+                    <li><strong>Battery Cable Distance (m):</strong> Enter the distance (in meters) between the battery bank and the inverter/controller unit. The calculator will estimate the best battery cable size and select the appropriate main breaker for high current.</li>
+                    <li><strong>AC Load Cable Distance (m):</strong> Enter the distance between the inverter and the home's AC distribution board to estimate the appropriate AC supply cable size and protection breaker.</li>
+                    <li><strong>Cable Climate Factor:</strong> The dropdown allows selecting a thermal safety factor based on the installation environment:
+                        <ul>
+                            <li>1. Moderate Climate (1.25x Safe): Standard factor for normal environmental conditions.</li>
+                            <li>2. Very Hot Climate (1.50x Safe): Doubled safety factor for extremely hot regions to avoid cable overheating and increased resistance.</li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </section>
 
         <section id="enterprise" class="section-card">
-            <h2 class="section-title">🏢 الباب الخامس: المنظومات الكبيرة والمشاريع التجارية (Enterprise)</h2>
-            <div class="content-block">
-                <p>مخصص للمشاريع التجارية والمصانع لتحديد حجم المنظومة مع دعم معمارية الجهد العالي (HV) وثلاثي الأطوار (3-Phase).</p>
+            <h2 class="section-title ar-only">قسم إعدادات المنظومات الكبيرة والمشاريع التجارية:</h2>
+            <h2 class="section-title en-only">Large Systems & Commercial Settings:</h2>
+            
+            <div class="content-block ar-only">
+                <p>مخصص للمشاريع التجارية، المصانع، والمباني الكبيرة لتحديد حجم المنظومة وهيكلتها هندسياً فوراً.</p>
+            </div>
+            <div class="content-block en-only">
+                <p>Dedicated to commercial projects, factories, and large buildings to instantly determine system size and engineering architecture.</p>
+            </div>
 
-                <div class="image-container">
-                    <img src="images/enterprise-settings.jpg" alt="إعدادات المنظومات الكبيرة والمشاريع التجارية">
-                    <div class="image-caption">الشكل (5): إدخال الاستهلاك اليومي المباشر بالـ kWh ونوع المعمارية</div>
-                </div>
+            <div class="image-container">
+                <img class="lang-img" data-base-src="images/enterprise-settings" src="images/enterprise-settings.jpg" alt="Enterprise Settings">
+            </div>
+
+            <div class="content-block ar-only">
+                <h4>خانات الإدخال بقسم المنظومات الكبيرة والمشاريع التجارية:</h4>
+                <ul>
+                    <li><strong>نوع النظام الكهربائي:</strong> يتيح لك اختيار معمارية النظام المناسبة للمشروع، وتشمل:
+                        <ul>
+                            <li>1. أحادي الطور .</li>
+                            <li>2 ثلاثي الأطوار 48 فولت.</li>
+                            <li>3 جهد عالي لرفع كفاءة وأمان المشاريع الكبرى.</li>
+                        </ul>
+                    </li>
+                    <li><strong>إجمالي الاستهلاك اليومي (kWh):</strong> خانة مخصصة لإدخال إجمالي الطاقة اليومية المطلوبة للمشروع (مثال: 50 كيلوواط)، والتي بناءً عليها يتم تفعيل وضع المشاريع الكبيرة وتجاوز جدول حصر وإضافة الأجهزة المنفردة لمنع ازدواجية الحسابات.</li>
+                    <li><strong>عدد الساعات نهاراً:</strong> أدخل عدد ساعات التشغيل الفعلية للمشروع خلال فترة النهار سطوع الشمس). تقوم الحاسبة باحتساب الاستهلاك النهراي المباشر لتحديد حجم الألواح المطلوبة لتغذية الأحمال فوراً دون الحاجة للمرور عبر البطاريات.</li>
+                    <li><strong>عدد الساعات ليلاً:</strong> أدخل عدد ساعات التشغيل المطلوبة للمشروع خلال الفترة الليلية. تقوم الخوارزمية بناءً على هذه القيمة بتحديد نسبة الاستهلاك ليلاً وتعيين سعة طاقة التخزين المطلوبة لبنك البطاريات (kWh) لتغطية تشغيل المشروع طوال الليل بدقة.</li>
+                </ul>
+            </div>
+            <div class="content-block en-only">
+                <h4>Commercial Project Input Fields:</h4>
+                <ul>
+                    <li><strong>Electrical System Type:</strong> Allows you to choose the appropriate system architecture for the project, including:
+                        <ul>
+                            <li>1. Single-Phase.</li>
+                            <li>2. 48V 3-Phase.</li>
+                            <li>3. High Voltage (HV) to increase efficiency and safety for major projects.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Total Daily Consumption (kWh):</strong> Field to input the total daily energy required for the project (e.g., 50 kWh). This activates the Large Scale Project mode and bypasses the individual appliance table to prevent double counting.</li>
+                    <li><strong>Daytime Operating Hours:</strong> Enter the actual operating hours during daytime (sunlight). The calculator computes direct daytime consumption to size the panels required to feed loads directly without passing through batteries.</li>
+                    <li><strong>Nighttime Operating Hours:</strong> Enter operating hours during the night. The algorithm uses this to determine nighttime consumption percentage and assigns the required storage capacity (kWh) for the battery bank to accurately cover night operations.</li>
+                </ul>
+            </div>
+
+            <div class="info-box ar-only">
+                <strong>ملاحظة هامة جداً تداخل وازدواجية الحسابات):</strong><br>
+                عند تفعيل قسم المنظومات الكبيرة والمشاريع التجارية وإدخال قيمة في خانة الاستهلاك اليومي المطلوب (kWh)، يقوم النظام أوتوماتيكياً بما يلي:<br>
+                • <strong>إلغاء تفعيل جدول حصر أحمال الأجهزة:</strong> يتم إخفاء جدول الأجهزة المنفردة وتصفير قيمها مؤقتا لمنع ازدواجية الحسابات بين الأحمال التفصيلية والاستهلاك الإجمالي المدخل.<br>
+                • <strong>إيقاف وتصفير إعدادات الكابلات والقواطع التقليدية:</strong> يتم تصفير مسافات الكابلات البطارية والأحمال في قسم الكابلات، نظراً لأن المشاريع التجارية الكبرى تتطلب دراسات هبوط جهد ميدانية متخصصة وتوصيلات نحاسية متوازية (Busbars) يتم حسابها بدقة في قسم المنظومات الكبيرة تختلف عن الحسابات المنزلية البسيطة.
+            </div>
+            <div class="info-box en-only">
+                <strong>Very Important Note (Calculation Overlap):</strong><br>
+                When activating the Enterprise section by entering a value in the Total Daily Consumption (kWh) field, the system automatically does the following:<br>
+                • <strong>Disables Appliance Load Table:</strong> Individual appliance tables are hidden and zeroed temporarily to prevent overlapping calculations.<br>
+                • <strong>Stops & Zeros Traditional Cable Settings:</strong> Cable distances in the traditional section are zeroed because large commercial projects require specialized field voltage drop studies and parallel copper busbars, which are calculated accurately within the Enterprise section distinct from simple residential calculations.
             </div>
         </section>
 
         <section id="appliances" class="section-card">
-            <h2 class="section-title">📋 الباب السادس: جدولة وحصر أحمال الأجهزة</h2>
-            <div class="content-block">
-                <p>تفكيك ونمط استهلاك الأجهزة، تحديد القدرات المستمرة، قدرات الإقلاع للأجهزة الثقيلة، وخيار التزامن.</p>
+            <h2 class="section-title ar-only">الباب الثالث: جدولة وحصر أحمال الأجهزة:</h2>
+            <h2 class="section-title en-only">Part 3: Appliances Load Schedule:</h2>
+            
+            <div class="content-block ar-only">
+                <p>هنا يتم تفكيك وتحليل نمط استهلاك العميل بدقة متناهية عبر الضغط على زر " إضافة جهاز جديد".</p>
+            </div>
+            <div class="content-block en-only">
+                <p>Here, the client's consumption pattern is meticulously broken down and analyzed by clicking the "Add New Appliance" button.</p>
+            </div>
 
-                <div class="image-container">
-                    <img src="images/appliance-table.jpg" alt="جدول حصر أحمال الأجهزة">
-                    <div class="image-caption">الشكل (6): جدول حصر الأجهزة وتحديد صدمة الإقلاع للإنفرتر</div>
-                </div>
+            <div class="image-container">
+                <img class="lang-img" data-base-src="images/appliance-table" src="images/appliance-table.jpg" alt="Appliance Table">
+            </div>
+
+            <div class="content-block ar-only">
+                <ul>
+                    <li><strong>اسم الجهاز:</strong> خانة نصية مرنة لتحديد نوع الحمل (مثال: مكيف سبليت ثلاجة، إضاءة).</li>
+                    <li><strong>القدرة المستمرة (واط):</strong> القدرة الكهربائية الاسمية التي يستهلكها الجهاز أثناء عمله المستقر، وهي القيمة الأساسية لحساب الطاقة الكلية للألواح والبطاريات.</li>
+                    <li><strong>قدرة الإقلاع أجهزة ثقيلة :</strong> ميزة هندسية متقدمة مخصصة للأجهزة التي تحتوي على محركات Inductive Loads) مثل المكيفات والمضخات والتي تستهلك تياراً مضاعفاً لحظة البدء. تُحسب هذه الخانة للإنفرتر فقط.</li>
+                    <li><strong>مربع اختيار "تزامن":</strong> 
+                        <br>عند تفعيله checkmark) يعني أن هذا الجهاز قد يقلع في نفس اللحظة مع بقية الأجهزة المتزامنة، وبالتالي يجمع التطبيق قدرات الإقلاع معاً لتأمين حجم إنفرتر ضخم يتحمل الصدمة اللحظية.
+                        <br>عند إلغائه يتم حساب استهلاك الجهاز الطبيعي دون إدخال تيار إقلاعه في الحسبة التراكمية القصوى للإنفرتر.
+                    </li>
+                    <li><strong>العدد (Quantity :</strong> عدد الأجهزة المتطابقة في النمط والقدرة.</li>
+                    <li><strong>نسبة التشغيل Duty Cycles:</strong> تتيح لك اختيار طبيعة عمل الجهاز لتجنب التضخيم غير الحقيقي للاستهلاك:
+                        <ul>
+                            <li>%100 مستمر للإضاءة والشاشات.</li>
+                            <li>70% متوسط : للمكيفات والسخانات.</li>
+                            <li>%50 متقطع للثلاجات و الأجهزة الدورية.</li>
+                        </ul>
+                    </li>
+                    <li><strong>ساعات العمل (نهاراً / ليلاً):</strong> فصل الساعات بدقة نهاراً أثناء ذروة الإنتاج، أو ليلاً بالاعتماد التام على البطاريات) وهو الفصل الذي يبنى عليه الحساب الدقيق لسعة طاقة البطارية المطلوبة.</li>
+                </ul>
+            </div>
+            <div class="content-block en-only">
+                <ul>
+                    <li><strong>Appliance Name:</strong> A flexible text field to identify the load type (e.g., Split AC, Fridge, Lights).</li>
+                    <li><strong>Continuous Power (W):</strong> The nominal electrical power the appliance consumes during stable operation. This is the base value for total panel and battery energy calculations.</li>
+                    <li><strong>Surge Power (Heavy):</strong> An advanced engineering feature for motor-driven (Inductive) loads like ACs and pumps that draw double current at startup. This is calculated for the inverter only.</li>
+                    <li><strong>"Sync" Checkbox:</strong> 
+                        <br>When checked, it assumes this appliance might start at the exact same moment as other synchronized appliances, combining surge powers to ensure a massive inverter size capable of handling the instantaneous shock.
+                        <br>When unchecked, normal consumption is calculated without adding its surge current to the inverter's maximum cumulative calculation.
+                    </li>
+                    <li><strong>Quantity:</strong> Number of identical appliances in pattern and power.</li>
+                    <li><strong>Duty Cycles (%):</strong> Select the operation nature to avoid unrealistic consumption inflation:
+                        <ul>
+                            <li>100%: Continuous for lights and screens.</li>
+                            <li>70%: Moderate for ACs and heaters.</li>
+                            <li>50%: Intermittent for fridges and cyclical appliances.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Operating Hours (Day / Night):</strong> Precise hour separation (Daytime during peak production, or Nighttime relying entirely on batteries). This separation dictates the precise calculation for required battery energy capacity.</li>
+                </ul>
             </div>
         </section>
 
         <section id="outputs" class="section-card">
-            <h2 class="section-title">📊 الباب السابع: مخرجات المنظومة والتحليل الهندسي</h2>
-            <div class="content-block">
-                <p>عرض شامل لكافة نتائج المنظومة والتوصيات الهندسية المعتمدة:</p>
+            <h2 class="section-title ar-only">الباب الرابع: مخرجات المنظومة والتحليل الهندسي:</h2>
+            <h2 class="section-title en-only">Part 4: System Outputs & Engineering Analysis:</h2>
+            
+            <div class="content-block ar-only">
+                <p>بمجرد إدخال البيانات، يقوم التطبيق بمعالجة المعادلات هندسياً وإخراج النتائج كالتالي:</p>
+            </div>
+            <div class="content-block en-only">
+                <p>Once data is entered, the app processes the engineering equations and outputs results as follows:</p>
+            </div>
 
-                <div class="image-container">
-                    <img src="images/output-results.jpg" alt="بطاقة نتائج ومخرجات المنظومة الهندسية">
-                    <div class="image-caption">الشكل (7-أ): النتائج الأساسية (سعة البطاريات، عدد الألواح، الإنفرتر)</div>
-                </div>
+            <div class="image-container">
+                <img class="lang-img" data-base-src="images/output-results" src="images/output-results.jpg" alt="Output Results">
+            </div>
 
-                <div class="gallery-grid">
-                    <div class="image-container">
-                        <img src="images/output-cables-card.jpg" alt="مواصفات الكابلات والقواطع">
-                        <div class="image-caption">الشكل (7-ب): بطاقة توصيات الكابلات والقواطع</div>
-                    </div>
-                    <div class="image-container">
-                        <img src="images/output-structure.jpg" alt="هيكلية المنظومة التجارية">
-                        <div class="image-caption">الشكل (7-ج): خريطة معمارية السلاسل والجهد العالي (HV)</div>
-                    </div>
-                </div>
+            <div class="content-block ar-only">
+                <ul>
+                    <li><strong>1. الطاقة الكلية شاملة الفقد (Etotal):</strong> إجمالي استهلاك الطاقة اليومي مقاساً بـ (واط.ساعة/يوم)، مضافاً إليه معامل الفقد القياسي للمنظومة لتغطية مفقودات الكابلات والإنفرتر والبطاريات.</li>
+                    <li><strong>2 سعة بطارية الليثيوم المطلوبة (Ah):</strong>
+                        <ul>
+                            <li>السعة الأمبرية (Ah) السعة المطلوبة للبطارية بناءً على أحمال الليل وعمق التفريغ المختار.</li>
+                            <li>السعة الفعلية :(kWh) الطاقة المخزنة بالكيلوواط . ساعة لسهولة مقارنتها بمواصفات البطاريات الحائطية في السوق.</li>
+                        </ul>
+                    </li>
+                    <li><strong>3. عدد الألواح الشمسية المطلوبة:</strong> العدد الفعلي للألواح مقرباً لأقرب رقم صحيح أعلى، مع إظهار القدرة الإجمالية للمصفوفة بالواط.</li>
+                    <li><strong>4 تيار منظم الشحن الأدنى (MPPT):</strong> التيار الأدنى الذي يجب أن يتحمله منظم الشحن في حال تجاوز الحمل للحدود المسموحة، تظهر الحاسبة تنبيهاً ذكياً يحدد العدد الأدنى لمنظمات الشحن المطلوبة.</li>
+                    <li><strong>5. القدرة المطلوبة للإنفرتر (Inverter):</strong> تعتمد الحاسبة على نظام تقييم ذكي لحجم الإنفرتر: الحجم القياسي (علامة خضراء عند توافق الأحمال تماماً مع جهد النظام المختار، وتُظهر القدرة التجارية المناسبة.</li>
+                </ul>
+            </div>
+            <div class="content-block en-only">
+                <ul>
+                    <li><strong>1. Total Energy with Losses (Etotal):</strong> Total daily energy consumption measured in (Wh/day), adding standard system loss factors covering cables, inverter, and batteries.</li>
+                    <li><strong>2. Required Lithium Battery Capacity (Ah):</strong>
+                        <ul>
+                            <li>Ampere Capacity (Ah): Required battery size based on night loads and chosen Depth of Discharge.</li>
+                            <li>Actual Energy (kWh): Stored energy in kilowatt-hours for easy comparison with wall-mounted market batteries.</li>
+                        </ul>
+                    </li>
+                    <li><strong>3. Required Solar Panels:</strong> The actual number of panels rounded to the nearest higher integer, showing the total array capacity in Watts.</li>
+                    <li><strong>4. Minimum MPPT Charge Current:</strong> The minimum current the charge controller must handle. If the load exceeds limits, the calculator shows a smart alert specifying the minimum number of charge controllers required.</li>
+                    <li><strong>5. Required Inverter Capacity:</strong> Uses a smart sizing system. Standard size (Green badge) indicates perfect harmony with chosen system voltage and shows the appropriate commercial capacity.</li>
+                </ul>
+            </div>
+
+            <div class="content-block ar-only">
+                <h4>6 مواصفات الكابلات والقواطع للمنظومات العادية السكنية):</h4>
+                <p>تظهر هذه البطاقة عند إدخال مسافات التوصيل، وتقدم إرشاداً فنياً حرجاً لقطاعات الكابلات والقواطع لحماية المنظومة من الهبوط في الجهد والارتفاع الحراري:</p>
+            </div>
+            <div class="content-block en-only">
+                <h4>6. Cables & Breakers Specs (For Standard Residential Systems):</h4>
+                <p>This card appears when entering connection distances, providing critical technical guidance for cable cross-sections and breakers to protect the system from voltage drops and thermal spikes:</p>
+            </div>
+
+            <div class="image-container">
+                <img class="lang-img" data-base-src="images/output-cables-card" src="images/output-cables-card.jpg" alt="Cables Output">
+            </div>
+
+            <div class="content-block ar-only">
+                <ul>
+                    <li><strong>کابل وقاطع البطارية:</strong> يحدد مقاس كابل النحاس الصافي (2^mm) وقاطع التيار المستمر (DC Breaker) المناسب بناءً على أقصى تيار مسحوب ومسافة التوصيل.</li>
+                    <li><strong>کابل وقاطع الأحمال (AC):</strong> يحدد مقاس كابل التغذية المترددة المتجه إلى لوحة توزيع المنزل والقاطع الترددي الآمن.</li>
+                    <li><strong>كابل وقاطع الألواح (PV):</strong> يحدد مقاس كابل النازل من الألواح وقاطع الحماية الـ DC الموصى به بناءً على تيار المصفوفة الإجمالي.</li>
+                </ul>
+            </div>
+            <div class="content-block en-only">
+                <ul>
+                    <li><strong>Battery Cable & Breaker:</strong> Determines pure copper cable size (mm²) and appropriate DC Breaker based on maximum drawn current and connection distance.</li>
+                    <li><strong>AC Load Cable & Breaker:</strong> Determines the AC supply cable size heading to the home distribution board and the safe AC breaker.</li>
+                    <li><strong>PV Array Cable & Breaker:</strong> Determines the PV descending cable size and recommended DC protection breaker based on total array current.</li>
+                </ul>
+            </div>
+
+            <div class="content-block ar-only">
+                <h4>7 بطاقة هيكلية المنظومة التجارية والهندسية للمشاريع الكبيرة)</h4>
+                <p>تتفعل تلقائياً عند إدخال الاستهلاك اليومي للمشاريع (kWh) لتوفير خريطة معمارية وتنفيذية شاملة:</p>
+            </div>
+            <div class="content-block en-only">
+                <h4>7. Commercial Architecture Card (For Large Projects)</h4>
+                <p>Activates automatically when entering daily project consumption (kWh) to provide a comprehensive architectural and execution map:</p>
+            </div>
+
+            <div class="image-container">
+                <img class="lang-img" data-base-src="images/output-structure" src="images/output-structure.jpg" alt="Enterprise Architecture">
+            </div>
+
+            <div class="content-block ar-only">
+                <ul>
+                    <li><strong>معمارية النظام:</strong> تظهر نمط الربط المعتمد للمشروع 48 Single-Phase ، أو High Voltage HV.</li>
+                    <li><strong>توزيع العواكس بالتوازي:</strong> توضح العدد الإجمالي للعواكس الموصى بها بقدرتها الفردية وتوزيعها بالتوازي لتغطية الحمل.</li>
+                    <li><strong>القدرة لكل طور (Phase):</strong> في أنظمة الـ (3-Phase) تُظهر قدرة الحمل الموزعة على كل خط لضمان توازن الفازات.</li>
+                    <li><strong>توزيع وربط بنوك البطاريات والسلاسل:</strong> توضح كيفية توصيل موديولات الليثيوم بالتوازي والتوالي، وتوزيع سلاسل الألواح (Strings) مع حساب أقصى جهد (Voc) في أنظمة الجهد العالي.</li>
+                    <li><strong>الكابلات والقواطع الرئيسية (DC):</strong> تحدد المقاسات العريضة للكابلات أو القضبان النحاسية (Busbars) وقواطع الحماية الرئيسية المسؤولة عن ربط المجموعات الكبيرة.</li>
+                </ul>
+            </div>
+            <div class="content-block en-only">
+                <ul>
+                    <li><strong>System Architecture:</strong> Displays the approved connection pattern for the project (48V Single-Phase, 3-Phase, or High Voltage HV).</li>
+                    <li><strong>Inverter Parallel Setup:</strong> Shows the total number of recommended inverters with their individual capacities distributed in parallel to cover the load.</li>
+                    <li><strong>Power per Phase:</strong> In 3-Phase systems, it shows the load capacity distributed per line to ensure phase balance.</li>
+                    <li><strong>Battery Racks & PV Strings Topology:</strong> Illustrates how to connect Lithium modules (Parallel/Series) and distribute PV Strings calculating maximum Voltage (Voc) in High Voltage systems.</li>
+                    <li><strong>Main Cables & Breakers (DC):</strong> Determines the heavy cross-sections for cables or Copper Busbars and main protection breakers responsible for linking large clusters.</li>
+                </ul>
+            </div>
+
+            <div class="content-block ar-only">
+                <h4>نظام التنبيهات والتحذيرات الهندسية الذكية :</h4>
+                <p>تعتمد الحاسبة على محرك تقييم ذكي ومتعدد المستويات لحماية المنظومة من المخاطر الحرارية والتصميمية:</p>
+                <ul>
+                    <li><strong>1. تنبيه ترقية جهد النظام 12V / 24V Overload:</strong> يظهر فوراً (بطاقة حمراء ) إذا تم اختيار جهد 12V أو 24 لأحمال ضخمة تتجاوز الحدود الآمنة للتيار؛ حيث تقدم الحاسبة مقترحاً فنياً فورياً بالقدرة المطلوبة مع التوصية بضرورة الترقية إلى نظام 48.</li>
+                    <li><strong>2. تنبيه شروط الربط بالتوازي Parallel Setup Conditions:</strong> عند تجاوز القدرة حاجز 16KW في نظام 48V ، تقوم الحاسبة بتوزيع القدرة على وحدات متعددة بالتوازي، مع إظهار تنبيه هائل يوضح الشروط الهندسية الواجب اتباعها تطابق الموديل والفرموير، وتساوي أطوال ومقاطع الكابلات).</li>
+                    <li><strong>3. تنبيه النطاق الحرج Critical Range 48:</strong> عند وصول القدرة إلى هذا النطاق، تظهر بطاقة تنبيه برتقالية تحذر من ارتفاع التيارات على خطوط الـ AC ، وتنصح بشدة بالانتقال إلى نظام ثلاثي الأطوار 3-Phase لتوزيع الأحمال بشكل متوازن.</li>
+                    <li><strong>4. تنبيه تجاوز حد التوازي Max 16 Units Limit:</strong> يظهر عند تجاوز عدد الوحدات المطلوبة بالتوازي 16 وحدة على نظام 48؛ حيث تُصدر الحاسبة تحذير إيقاف لعدم إمكانية مزامنة هذا العدد عملياً، وتوجه المستخدم فوراً لوضع المشاريع الكبيرة والجهد العالي.</li>
+                    <li><strong>5. الإيقاف الهندسي التام Hard Stop > 1000A / HV Mandatory:</strong> تحذير أحمر صارم يظهر عندما تتجاوز الأحمال قدرة 48KW (ما يعادل أكثر من 1000 أمبير على جهد (48). يمنع التطبيق الربط بالتوازي لهذه القدرة نهائياً لتفادي خطر الاحتراق والتلف الحراري، ويفرض الانتقال الفوري لمعمارية الجهد العالي (800-1600 High Voltage HV) لضمان أعلى مستويات الأمان والكفاءة.</li>
+                </ul>
+            </div>
+            <div class="content-block en-only">
+                <h4>Smart Engineering Alerts & Warnings System:</h4>
+                <p>The calculator relies on a smart, multi-level evaluation engine to protect the system from thermal and design risks:</p>
+                <ul>
+                    <li><strong>1. 12V / 24V Overload Upgrade Alert:</strong> Appears instantly (Red Card) if 12V/24V is selected for massive loads exceeding safe current limits. The calculator provides an immediate technical proposal with a strong recommendation to upgrade to a 48V system.</li>
+                    <li><strong>2. Parallel Setup Conditions Alert:</strong> When capacity crosses 16kW on 48V, the calculator distributes power across multiple units in parallel, displaying a massive alert outlining mandatory engineering conditions (matching models, firmware, and equal cable lengths/sections).</li>
+                    <li><strong>3. Critical Range 48 Alert:</strong> Reaching this capacity triggers an orange alert warning of high currents on AC lines, strongly advising transitioning to a 3-Phase system for balanced load distribution.</li>
+                    <li><strong>4. Max 16 Units Parallel Limit Alert:</strong> Appears when the requested parallel units exceed 16 on 48V. The calculator issues a stop warning due to the practical impossibility of synchronizing this number, directing the user immediately to Large Projects & HV mode.</li>
+                    <li><strong>5. Hard Stop > 1000A / HV Mandatory:</strong> A strict red warning appears when loads exceed 48kW (equivalent to over 1000 Amps on 48V). The app entirely prohibits parallel connections for this capacity to avoid combustion and thermal damage, mandating an immediate transition to High Voltage architecture (800-1600 HV) to guarantee maximum safety and efficiency.</li>
+                </ul>
             </div>
         </section>
 
         <section id="export" class="section-card">
-            <h2 class="section-title">📄 الباب الثامن: تصدير التقارير الفنية (PDF)</h2>
-            <div class="content-block">
-                <p>تصدير تقرير فني رسمي وموثق بأسماء المهندس والعميل متوافق تماماً مع معايير الطباعة.</p>
+            <h2 class="section-title ar-only">الباب الخامس: تصدير التقارير الفنية (PDF Export):</h2>
+            <h2 class="section-title en-only">Part 5: PDF Report Export:</h2>
+            
+            <div class="content-block ar-only">
+                <p>لإضفاء الطابع الرسمي والاحترافي على مخرجات عملك أمام عملائك وشركاتك، تتيح لك الحاسبة طباعة تقارير هندسية متكاملة عبر الخطوات التالية:</p>
+            </div>
+            <div class="content-block en-only">
+                <p>To add an official and professional touch to your workflow deliverables for clients and companies, the calculator allows you to print integrated engineering reports via the following steps:</p>
+            </div>
 
-                <div class="image-container">
-                    <img src="images/export-pdf.jpg" alt="إعدادات تصدير تقرير PDF">
-                    <div class="image-caption">الشكل (8): خانات إدخال بيانات التقرير وتصديره رسمياً</div>
-                </div>
+            <div class="image-container">
+                <img class="lang-img" data-base-src="images/export-pdf" src="images/export-pdf.jpg" alt="PDF Export">
+            </div>
+
+            <div class="content-block ar-only">
+                <ul>
+                    <li><strong>1. إدخال بيانات التقرير:</strong>
+                        <ul>
+                            <li>اسم المهندس / المؤسسة : أدخل اسمك أو اسم مكتبك الهندسي .</li>
+                            <li>اسم العميل / المشروع : أدخل اسم العميل أو اسم المشروع لتضمينها في ترويسة التقرير.</li>
+                        </ul>
+                    </li>
+                    <li><strong>2. تصدير التقرير (زر التصدير الأزرق):</strong> اضغط على زر تصدير التقرير PDF ؛ ليقوم المحرك الذكي بتنسيق كامل البيانات والمخرجات في وثيقة هندسية متوافقة تماماً مع معايير الطباعة العالمية ISO A4 ، بصفحات مرقمة وآمنة وجاهزة للمشاركة عبر WhatsApp أو البريد الإلكتروني.</li>
+                </ul>
+            </div>
+            <div class="content-block en-only">
+                <ul>
+                    <li><strong>1. Enter Report Data:</strong>
+                        <ul>
+                            <li>Engineer / Company Name: Enter your name or engineering firm name.</li>
+                            <li>Client / Project Name: Enter the client or project name to include in the report header.</li>
+                        </ul>
+                    </li>
+                    <li><strong>2. Export Report (Blue Export Button):</strong> Click the Export PDF Report button; the smart engine will format all data and outputs into an engineering document fully compliant with ISO A4 global printing standards, with numbered, secure pages ready to be shared via WhatsApp or Email.</li>
+                </ul>
+            </div>
+
+            <div class="info-box ar-only">
+                <strong>ملاحظة مهمة بدء مشروع جديد:</strong><br>
+                في حال الرغبة في مسح جميع البيانات الحالية وتهيئ الحاسبة لدراسة مشروع جديد، استخدم زر (تصفير البيانات مسح كل شيء ) لإعادة ضبط المدخلات فوراً.
+            </div>
+            <div class="info-box en-only">
+                <strong>Important Note for Starting a New Project:</strong><br>
+                If you wish to clear all current data and prepare the calculator to study a new project, use the (Reset All Data) button to immediately clear all inputs.
             </div>
         </section>
 
         <div class="actions-wrapper">
-            <a href="https://solar-pro-calculator.netlify.app" target="_blank" class="btn btn-primary">
-                ⚡ الانتقال إلى حاسبة الطاقة الشمسية الذكية
-            </a>
-            <a href="manual.pdf" download class="btn btn-secondary">
-                📥 تحميل نسخة الدليل المطبوعة (PDF)
-            </a>
+            <a href="index.html" class="btn btn-primary ar-only">⚡ الانتقال إلى حاسبة الطاقة الشمسية الذكية</a>
+            <a href="index.html" class="btn btn-primary en-only">⚡ Go to Smart Solar Calculator</a>
+            
+            <a href="manual.pdf" download class="btn btn-secondary ar-only">📥 تحميل نسخة الدليل المطبوعة (PDF)</a>
+            <a href="manual.pdf" download class="btn btn-secondary en-only">📥 Download PDF Manual</a>
         </div>
 
         <footer class="footer">
-            <p>Smart Solar Calculator - V9 Pro © جميع الحقوق محفوظة - أداة الويب الهندسية الذكية</p>
+            <p class="ar-only">تصميم وتطوير <span style="color: var(--accent-green); font-weight: 700;">مازن العوذلي</span> © 2026</p>
+            <p class="en-only">Designed & Developed by <span style="color: var(--accent-green); font-weight: 700;">Mazen Al-Awdhali</span> © 2026</p>
         </footer>
 
     </div>
 
+    <script>
+        // دالة تطبيق اللغة وقراءة التفضيلات من المتصفح
+        function applyLanguage() {
+            // قراءة اللغة المحفوظة في التطبيق الرئيسي (العربية كافتراضي)
+            let currentLang = localStorage.getItem('solar_app_lang') || 'ar';
+            
+            // تغيير خصائص صفحة الويب
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            
+            // تحديث زر اللغة نفسه
+            const globeSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>';
+            document.getElementById('langBtn').innerHTML = currentLang === 'ar' ? 'EN ' + globeSvg : 'AR ' + globeSvg;
+
+            // التبديل الذكي لمسارات الصور
+            document.querySelectorAll('.lang-img').forEach(img => {
+                const baseName = img.getAttribute('data-base-src');
+                if (currentLang === 'en') {
+                    img.src = baseName + '-en.jpg'; // تحميل الصورة الإنجليزية
+                } else {
+                    img.src = baseName + '.jpg';    // تحميل الصورة العربية
+                }
+            });
+        }
+
+        // دالة تبديل اللغة وحفظها
+        function toggleLanguage() {
+            let currentLang = localStorage.getItem('solar_app_lang') || 'ar';
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('solar_app_lang', currentLang);
+            applyLanguage();
+        }
+
+        // تطبيق اللغة فور تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', applyLanguage);
+    </script>
 </body>
 </html>
