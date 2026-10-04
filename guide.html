@@ -308,7 +308,7 @@
 
         <!-- زر تغيير اللغة -->
         <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn">
-            EN <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            EN <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
         </button>
 
         <header class="header">
@@ -377,7 +377,6 @@
 
             <div class="gallery-grid">
                 <div class="image-container">
-                    <!-- Note the data-base-src attribute used for switching languages -->
                     <img class="lang-img" data-base-src="images/pwa-step1" src="images/pwa-step1.jpg" alt="PWA Step 1">
                 </div>
                 <div class="image-container">
@@ -855,31 +854,30 @@
     </div>
 
     <script>
-        // دالة تطبيق اللغة وقراءة التفضيلات من المتصفح
         function applyLanguage() {
-            // قراءة اللغة المحفوظة في التطبيق الرئيسي (العربية كافتراضي)
             let currentLang = localStorage.getItem('solar_app_lang') || 'ar';
             
-            // تغيير خصائص صفحة الويب
             document.documentElement.lang = currentLang;
             document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
             
-            // تحديث زر اللغة نفسه
-            const globeSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>';
+            const globeSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>';
             document.getElementById('langBtn').innerHTML = currentLang === 'ar' ? 'EN ' + globeSvg : 'AR ' + globeSvg;
 
-            // التبديل الذكي لمسارات الصور بمسار مطلق لضمان توافق Vercel
             document.querySelectorAll('.lang-img').forEach(img => {
-                const baseName = '/' + img.getAttribute('data-base-src').replace(/^\//, '');
-                if (currentLang === 'en') {
-                    img.src = baseName + '-en.jpg'; // تحميل الصورة الإنجليزية
-                } else {
-                    img.src = baseName + '.jpg';    // تحميل الصورة العربية
-                }
+                const baseName = img.getAttribute('data-base-src').replace(/^\//, '');
+                const targetSrc = currentLang === 'en' ? baseName + '-en.jpg?v=2' : baseName + '.jpg?v=2';
+                
+                img.src = targetSrc;
+
+                // ميزة الحماية البرمجية: إذا فشل تحميل الصورة الإنجليزية يرجع تلقائياً للعربية
+                img.onerror = function() {
+                    if (this.src.includes('-en.jpg')) {
+                        this.src = baseName + '.jpg';
+                    }
+                };
             });
         }
 
-        // دالة تبديل اللغة وحفظها
         function toggleLanguage() {
             let currentLang = localStorage.getItem('solar_app_lang') || 'ar';
             currentLang = currentLang === 'ar' ? 'en' : 'ar';
@@ -887,7 +885,6 @@
             applyLanguage();
         }
 
-        // تطبيق اللغة فور تحميل الصفحة
         document.addEventListener('DOMContentLoaded', applyLanguage);
     </script>
 </body>
