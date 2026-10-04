@@ -207,6 +207,7 @@
             padding: 0;
         }
 
+        /* LTR/RTL support for bullets */
         html[dir="rtl"] .content-block ul li { padding-right: 20px; margin-bottom: 8px; position: relative; }
         html[dir="ltr"] .content-block ul li { padding-left: 20px; margin-bottom: 8px; position: relative; }
         
@@ -307,7 +308,7 @@
 
         <!-- زر تغيير اللغة -->
         <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn">
-            EN <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            EN <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
         </button>
 
         <header class="header">
@@ -375,18 +376,12 @@
             </div>
 
             <div class="gallery-grid">
-                <div class="image-container ar-only">
-                    <img src="./images/pwa-step1.jpg" alt="PWA Step 1">
+                <div class="image-container">
+                    <!-- Note the data-base-src attribute used for switching languages -->
+                    <img class="lang-img" data-base-src="images/pwa-step1" src="images/pwa-step1.jpg" alt="PWA Step 1">
                 </div>
-                <div class="image-container en-only">
-                    <img src="./images/pwa-step1-en.jpg" alt="PWA Step 1">
-                </div>
-
-                <div class="image-container ar-only">
-                    <img src="./images/pwa-step2.jpg" alt="PWA Step 2">
-                </div>
-                <div class="image-container en-only">
-                    <img src="./images/pwa-step2-en.jpg" alt="PWA Step 2">
+                <div class="image-container">
+                    <img class="lang-img" data-base-src="images/pwa-step2" src="images/pwa-step2.jpg" alt="PWA Step 2">
                 </div>
             </div>
             
@@ -421,11 +416,8 @@
                 <p>This section represents the governing inputs that directly influence the overall design equations of the system:</p>
             </div>
 
-            <div class="image-container ar-only">
-                <img src="./images/system-settings.jpg" alt="System Settings">
-            </div>
-            <div class="image-container en-only">
-                <img src="./images/system-settings-en.jpg" alt="System Settings">
+            <div class="image-container">
+                <img class="lang-img" data-base-src="images/system-settings" src="images/system-settings.jpg" alt="System Settings">
             </div>
 
             <div class="content-block ar-only">
@@ -482,11 +474,8 @@
                 <p>Used when the site is equipped with an external power source (like the national grid or a generator) alongside solar panels and batteries. The calculator utilizes grid availability hours to reduce the required panel and battery sizes, lowering overall system costs.</p>
             </div>
 
-            <div class="image-container ar-only">
-                <img src="./images/hybrid-settings.jpg" alt="Hybrid Settings">
-            </div>
-            <div class="image-container en-only">
-                <img src="./images/hybrid-settings-en.jpg" alt="Hybrid Settings">
+            <div class="image-container">
+                <img class="lang-img" data-base-src="images/hybrid-settings" src="images/hybrid-settings.jpg" alt="Hybrid Settings">
             </div>
 
             <div class="info-box ar-only">
@@ -525,11 +514,8 @@
                 <p>This section is an advanced supplementary engineering tool for estimating and selecting appropriate copper cable sizes and electrical breaker protections for each part of the system accurately and safely.</p>
             </div>
 
-            <div class="image-container ar-only">
-                <img src="./images/cables-settings.jpg" alt="Cables Settings">
-            </div>
-            <div class="image-container en-only">
-                <img src="./images/cables-settings-en.jpg" alt="Cables Settings">
+            <div class="image-container">
+                <img class="lang-img" data-base-src="images/cables-settings" src="images/cables-settings.jpg" alt="Cables Settings">
             </div>
 
             <div class="content-block ar-only">
@@ -571,11 +557,8 @@
                 <p>Dedicated to commercial projects, factories, and large buildings to instantly determine system size and engineering architecture.</p>
             </div>
 
-            <div class="image-container ar-only">
-                <img src="./images/enterprise-settings.jpg" alt="Enterprise Settings">
-            </div>
-            <div class="image-container en-only">
-                <img src="./images/enterprise-settings-en.jpg" alt="Enterprise Settings">
+            <div class="image-container">
+                <img class="lang-img" data-base-src="images/enterprise-settings" src="images/enterprise-settings.jpg" alt="Enterprise Settings">
             </div>
 
             <div class="content-block ar-only">
@@ -589,8 +572,8 @@
                         </ul>
                     </li>
                     <li><strong>إجمالي الاستهلاك اليومي (kWh):</strong> خانة مخصصة لإدخال إجمالي الطاقة اليومية المطلوبة للمشروع (مثال: 50 كيلوواط)، والتي بناءً عليها يتم تفعيل وضع المشاريع الكبيرة وتجاوز جدول حصر وإضافة الأجهزة المنفردة لمنع ازدواجية الحسابات.</li>
-                    <li><strong>عدد الساعات نهاراً:</strong> أدخل عدد الساعات التشغيل الفعلية للمشروع خلال فترة النهار سطوع الشمس). تقوم الحاسبة باحتساب الاستهلاك النهراي المباشر لتحديد حجم الألواح المطلوبة لتغذية الأحمال فوراً دون الحاجة للمرور عبر البطاريات.</li>
-                    <li><strong>عدد الساعات ليلاً:</strong> أدخل عدد الساعات التشغيل المطلوبة للمشروع خلال الفترة الليلية. تقوم الخوارزمية بناءً على هذه القيمة بتحديد نسبة الاستهلاك ليلاً وتعيين سعة طاقة التخزين المطلوبة لبنك البطاريات (kWh) لتغطية تشغيل المشروع طوال الليل بدقة.</li>
+                    <li><strong>عدد الساعات نهاراً:</strong> أدخل عدد ساعات التشغيل الفعلية للمشروع خلال فترة النهار سطوع الشمس). تقوم الحاسبة باحتساب الاستهلاك النهراي المباشر لتحديد حجم الألواح المطلوبة لتغذية الأحمال فوراً دون الحاجة للمرور عبر البطاريات.</li>
+                    <li><strong>عدد الساعات ليلاً:</strong> أدخل عدد ساعات التشغيل المطلوبة للمشروع خلال الفترة الليلية. تقوم الخوارزمية بناءً على هذه القيمة بتحديد نسبة الاستهلاك ليلاً وتعيين سعة طاقة التخزين المطلوبة لبنك البطاريات (kWh) لتغطية تشغيل المشروع طوال الليل بدقة.</li>
                 </ul>
             </div>
             <div class="content-block en-only">
@@ -634,11 +617,8 @@
                 <p>Here, the client's consumption pattern is meticulously broken down and analyzed by clicking the "Add New Appliance" button.</p>
             </div>
 
-            <div class="image-container ar-only">
-                <img src="./images/appliance-table.jpg" alt="Appliance Table">
-            </div>
-            <div class="image-container en-only">
-                <img src="./images/appliance-table-en.jpg" alt="Appliance Table">
+            <div class="image-container">
+                <img class="lang-img" data-base-src="images/appliance-table" src="images/appliance-table.jpg" alt="Appliance Table">
             </div>
 
             <div class="content-block ar-only">
@@ -694,11 +674,8 @@
                 <p>Once data is entered, the app processes the engineering equations and outputs results as follows:</p>
             </div>
 
-            <div class="image-container ar-only">
-                <img src="./images/output-results.jpg" alt="Output Results">
-            </div>
-            <div class="image-container en-only">
-                <img src="./images/output-results-en.jpg" alt="Output Results">
+            <div class="image-container">
+                <img class="lang-img" data-base-src="images/output-results" src="images/output-results.jpg" alt="Output Results">
             </div>
 
             <div class="content-block ar-only">
@@ -739,11 +716,8 @@
                 <p>This card appears when entering connection distances, providing critical technical guidance for cable cross-sections and breakers to protect the system from voltage drops and thermal spikes:</p>
             </div>
 
-            <div class="image-container ar-only">
-                <img src="./images/output-cables-card.jpg" alt="Cables Output">
-            </div>
-            <div class="image-container en-only">
-                <img src="./images/output-cables-card-en.jpg" alt="Cables Output">
+            <div class="image-container">
+                <img class="lang-img" data-base-src="images/output-cables-card" src="images/output-cables-card.jpg" alt="Cables Output">
             </div>
 
             <div class="content-block ar-only">
@@ -770,11 +744,8 @@
                 <p>Activates automatically when entering daily project consumption (kWh) to provide a comprehensive architectural and execution map:</p>
             </div>
 
-            <div class="image-container ar-only">
-                <img src="./images/output-structure.jpg" alt="Enterprise Architecture">
-            </div>
-            <div class="image-container en-only">
-                <img src="./images/output-structure-en.jpg" alt="Enterprise Architecture">
+            <div class="image-container">
+                <img class="lang-img" data-base-src="images/output-structure" src="images/output-structure.jpg" alt="Enterprise Architecture">
             </div>
 
             <div class="content-block ar-only">
@@ -831,11 +802,8 @@
                 <p>To add an official and professional touch to your workflow deliverables for clients and companies, the calculator allows you to print integrated engineering reports via the following steps:</p>
             </div>
 
-            <div class="image-container ar-only">
-                <img src="./images/export-pdf.jpg" alt="PDF Export">
-            </div>
-            <div class="image-container en-only">
-                <img src="./images/export-pdf-en.jpg" alt="PDF Export">
+            <div class="image-container">
+                <img class="lang-img" data-base-src="images/export-pdf" src="images/export-pdf.jpg" alt="PDF Export">
             </div>
 
             <div class="content-block ar-only">
@@ -887,15 +855,31 @@
     </div>
 
     <script>
+        // دالة تطبيق اللغة وقراءة التفضيلات من المتصفح
         function applyLanguage() {
+            // قراءة اللغة المحفوظة في التطبيق الرئيسي (العربية كافتراضي)
             let currentLang = localStorage.getItem('solar_app_lang') || 'ar';
+            
+            // تغيير خصائص صفحة الويب
             document.documentElement.lang = currentLang;
             document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
             
-            const globeSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>';
+            // تحديث زر اللغة نفسه
+            const globeSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>';
             document.getElementById('langBtn').innerHTML = currentLang === 'ar' ? 'EN ' + globeSvg : 'AR ' + globeSvg;
+
+            // التبديل الذكي لمسارات الصور بمسار مطلق لضمان توافق Vercel
+            document.querySelectorAll('.lang-img').forEach(img => {
+                const baseName = '/' + img.getAttribute('data-base-src').replace(/^\//, '');
+                if (currentLang === 'en') {
+                    img.src = baseName + '-en.jpg'; // تحميل الصورة الإنجليزية
+                } else {
+                    img.src = baseName + '.jpg';    // تحميل الصورة العربية
+                }
+            });
         }
 
+        // دالة تبديل اللغة وحفظها
         function toggleLanguage() {
             let currentLang = localStorage.getItem('solar_app_lang') || 'ar';
             currentLang = currentLang === 'ar' ? 'en' : 'ar';
@@ -903,6 +887,7 @@
             applyLanguage();
         }
 
+        // تطبيق اللغة فور تحميل الصفحة
         document.addEventListener('DOMContentLoaded', applyLanguage);
     </script>
 </body>
