@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدليل الهندسي والشرح التفصيلي - حاسبة الطاقة الشمسية الذكية</title>
+    <!-- استدعاء خط Tajawal من Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-green: #10b981;
+            --accent-green-hover: #059669;
+            --accent-blue: #3b82f6;
+            --accent-amber: #f59e0b;
+            --accent-red: #ef4444;
+            --border-color: #334155;
+            --radius-lg: 16px;
+            --radius-md: 8px;
+            --shadow-glow: 0 10px 25px -5px rgba(16, 185, 129, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.7;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* الهيدر العلوي */
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 30px 20px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-blue));
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+            border: 1px solid var(--accent-green);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            color: var(--text-main);
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* التنقل السريع للفهرس */
+        .nav-index {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .nav-index h3 {
+            font-size: 1.1rem;
+            color: var(--accent-green);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 8px 12px;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+            display: block;
+        }
+
+        .nav-links a:hover {
+            border-color: var(--accent-green);
+            background: rgba(16, 185, 129, 0.08);
+            color: var(--accent-green);
+        }
+
+        /* الكروت والقطاعات */
+        .section-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--accent-green);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .content-block {
+            margin-bottom: 20px;
+        }
+
+        .content-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .content-block h4 {
+            color: var(--accent-blue);
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .content-block p, .content-block ul {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        .content-block ul {
+            list-style-type: none;
+            padding-right: 0;
+        }
+
+        .content-block ul li {
+            position: relative;
+            padding-right: 20px;
+            margin-bottom: 8px;
+        }
+
+        .content-block ul li::before {
+            content: "•";
+            color: var(--accent-green);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            right: 0;
+            top: -2px;
+        }
+
+        /* شبكة الصور المتجاورة أو الفردية */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .image-container {
+            text-align: center;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 12px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            max-height: 380px;
+            border-radius: 6px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            object-fit: contain;
+        }
+
+        .image-caption {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        /* مربعات التنبيهات */
+        .info-box {
+            background: rgba(59, 130, 246, 0.08);
+            border-right: 4px solid var(--accent-blue);
+            padding: 12px 15px;
+            border-radius: 4px var(--radius-md) var(--radius-md) 4px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .warning-box {
+            background: rgba(245, 158, 11, 0.08);
+            border-right: 4px solid var(--accent-amber);
+            padding: 12px 15px;
+            border-radius: 4px var(--radius-md) var(--radius-md) 4px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .danger-box {
+            background: rgba(239, 68, 68, 0.08);
+            border-right: 4px solid var(--accent-red);
+            padding: 12px 15px;
+            border-radius: 4px var(--radius-md) var(--radius-md) 4px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        /* الأزرار الإضافية */
+        .actions-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-green);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-green-hover);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-card-hover);
+            border-color: var(--text-muted);
+        }
+
+        /* فوتر الصفحة */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+            .header h1 {
+                font-size: 1.4rem;
+            }
+            .section-card {
+                padding: 18px;
+            }
+            .nav-links {
+                grid-template-columns: 1fr;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- الهيدر الرئيسي -->
+        <header class="header">
+            <span class="badge">V9 GOLD PRO</span>
+            <h1>حاسبة الطاقة الشمسية الذكية</h1>
+            <p>الدليل الهندسي الشامل وشرح الاستخدام الميداني المفصل</p>
+        </header>
+
+        <!-- قائمة التنقل السريع -->
+        <nav class="nav-index">
+            <h3>📑 الفهرس والتنقل السريع</h3>
+            <ul class="nav-links">
+                <li><a href="#intro">1. التثبيت دون اتصال (PWA)</a></li>
+                <li><a href="#settings">2. إعدادات المنظومة الهندسية</a></li>
+                <li><a href="#hybrid">3. إعدادات النظام الهجين</a></li>
+                <li><a href="#cables">4. الكابلات والقواطع</a></li>
+                <li><a href="#enterprise">5. المنظومات الكبيرة والتجارية</a></li>
+                <li><a href="#appliances">6. جدولة وحصر الأحمال</a></li>
+                <li><a href="#outputs">7. مخرجات التحليل والإنذارات</a></li>
+                <li><a href="#export">8. تصدير التقارير (PDF)</a></li>
+            </ul>
+        </nav>
+
+        <!-- الباب الأول: تثبيت PWA (صورتين خطوة بخطوة) -->
+        <section id="intro" class="section-card">
+            <h2 class="section-title">📱 الباب الأول: تشغيل الأداة وتثبيتها دون اتصال (PWA)</h2>
+            <div class="content-block">
+                <p>تتميز الحاسبة الذكية بأنها تطبيق ويب تقدمي (PWA) يمنحها القدرة على العمل في المواقع الميدانية النائية والمناطق المقطوعة عن الإنترنت بالكامل بكفاءة تامة دون الحاجة لاتصال بالشبكة[span_0](start_span)[span_0](end_span).</p>
+                
+                <h4>خطوات التثبيت التفصيلية على الهواتف:</h4>
+                <ul>
+                    <li><strong>الخطوة 1:</strong> فتح قائمة المتصفح واختيار "التثبيت وإنشاء اختصار" (Install App)[span_1](start_span)[span_1](end_span).</li>
+                    <li><strong>الخطوة 2:</strong> تأكيد التثبيت في النافذة المنبثقة للوصول السريع من الشاشة الرئيسية[span_2](start_span)[span_2](end_span)[span_3](start_span)[span_3](end_span).</li>
+                </ul>
+
+                <!-- شبكة الصورتين للباب الأول -->
+                <div class="gallery-grid">
+                    <div class="image-container">
+                        <img src="images/pwa-step1.jpg" alt="خيار التثبيت من قائمة المتصفح">
+                        <div class="image-caption">الشكل (1-أ): فتح القائمة واختيار "التثبيت وإنشاء اختصار[span_4](start_span)"[span_4](end_span)</div>
+                    </div>
+                    <div class="image-container">
+                        <img src="images/pwa-step2.jpg" alt="نافذة تأكيد تثبيت التطبيق">
+                        <div class="image-caption">الشكل (1-ب): تأكيد تثبيت الأيقونة على الشاشة الرئيسية[span_5](start_span)[span_5](end_span)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- الباب الثاني: إعدادات المنظومة -->
+        <section id="settings" class="section-card">
+            <h2 class="section-title">⚙️ الباب الثاني: إعدادات المنظومة الهندسية</h2>
+            <div class="content-block">
+                <p>يمثل هذا الجزء المدخلات الحاكمة والمؤثرة مباشرة في معادلات التصميم الإجمالية للمنظومة[span_6](start_span)[span_6](end_span):</p>
+                <ul>
+                    <li><strong>جهد النظام (Volt):</strong> اختيار الجهد المناسب (12V، 24V، أو 48V) لتقليل سماكة الكابلات[span_7](start_span)[span_7](end_span).</li>
+                    <li><strong>قدرة اللوح المستهدف (W):</strong> إدخال قدرة اللوح بالواط (مثال: 450W) لتحديد أعداد الألواح[span_8](start_span)[span_8](end_span)[span_9](start_span)[span_9](end_span).</li>
+                    <li><strong>ساعات ذروة الشمس ومناخ الألواح:</strong> مراعاة ساعات الإشعاع والأداء الحراري[span_10](start_span)[span_10](end_span).</li>
+                    <li><strong>نسبة حماية البطارية (DoD):</strong> ضبط عمق التفريغ المسموح به لحماية الخلايا[span_11](start_span)[span_11](end_span).</li>
+                </ul>
+
+                <div class="image-container">
+                    <img src="images/system-settings.jpg" alt="إعدادات المنظومة الهندسية">
+                    <div class="image-caption">الشكل (2): واجهة إعدادات المنظومة الهندسية الأساسية[span_12](start_span)[span_12](end_span)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- الباب الثالث: النظام الهجين -->
+        <section id="hybrid" class="section-card">
+            <h2 class="section-title">🔌 الباب الثالث: إعدادات النظام الهجين (Hybrid)</h2>
+            <div class="content-block">
+                <p>تستفيد الحاسبة من ساعات توفر الشبكة أو المولد نهاراً وليلاً لتخفيض حجم وسعة الألواح والبطاريات المطلوبة[span_13](start_span)[span_13](end_span).</p>
+
+                <div class="image-container">
+                    <img src="images/hybrid-settings.jpg" alt="إعدادات النظام الهجين">
+                    <div class="image-caption">الشكل (3): خانات إدخال ساعات التغذية وتيار شاحن الشبكة[span_14](start_span)[span_14](end_span)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- الباب الرابع: الكابلات والقواطع -->
+        <section id="cables" class="section-card">
+            <h2 class="section-title">📐 الباب الرابع: إعدادات الكابلات والقواطع (الحمايات)</h2>
+            <div class="content-block">
+                <p>تقدير مقاسات الموصلات النحاسية وقواطع الحماية لكل جزئية في المنظومة لضمان الأمان ومواجهة هبوط الجهد[span_15](start_span)[span_15](end_span)[span_16](start_span)[span_16](end_span).</p>
+
+                <div class="image-container">
+                    <img src="images/cables-settings.jpg" alt="إعدادات الكابلات والقواطع">
+                    <div class="image-caption">الشكل (4): مسافات كابلات البطارية والأحمال واختيار معامل الأمان[span_17](start_span)[span_17](end_span)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- الباب الخامس: المنظومات الكبيرة والتجارية -->
+        <section id="enterprise" class="section-card">
+            <h2 class="section-title">🏢 الباب الخامس: المنظومات الكبيرة والمشاريع التجارية (Enterprise)</h2>
+            <div class="content-block">
+                <p>مخصص للمشاريع التجارية والمصانع لتحديد حجم المنظومة مع دعم معمارية الجهد العالي (HV) وثلاثي الأطوار (3-Phase)[span_18](start_span)[span_18](end_span).</p>
+
+                <div class="image-container">
+                    <img src="images/enterprise-settings.jpg" alt="إعدادات المنظومات الكبيرة والمشاريع التجارية">
+                    <div class="image-caption">الشكل (5): إدخال الاستهلاك اليومي المباشر بالـ kWh ونوع المعمارية[span_19](start_span)[span_19](end_span)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- الباب السادس: جدولة الأحمال -->
+        <section id="appliances" class="section-card">
+            <h2 class="section-title">📋 الباب السادس: جدولة وحصر أحمال الأجهزة</h2>
+            <div class="content-block">
+                <p>تفكيك ونمط استهلاك الأجهزة، تحديد القدرات المستمرة، قدرات الإقلاع للأجهزة الثقيلة، وخيار التزامن[span_20](start_span)[span_20](end_span)[span_21](start_span)[span_21](end_span).</p>
+
+                <div class="image-container">
+                    <img src="images/appliance-table.jpg" alt="جدول حصر أحمال الأجهزة">
+                    <div class="image-caption">الشكل (6): جدول حصر الأجهزة وتحديد صدمة الإقلاع للإنفرتر[span_22](start_span)[span_22](end_span)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- الباب السابع: المخرجات والتنبيهات (3 صور تفصيلية) -->
+        <section id="outputs" class="section-card">
+            <h2 class="section-title">📊 الباب السابع: مخرجات المنظومة والتحليل الهندسي</h2>
+            <div class="content-block">
+                <p>عرض شامل لكافة نتائج المنظومة والتوصيات الهندسية المعتمدة[span_23](start_span)[span_23](end_span)[span_24](start_span)[span_24](end_span)[span_25](start_span)[span_25](end_span):</p>
+
+                <!-- 3 صور للمخرجات والإنذارات -->
+                <div class="image-container">
+                    <img src="images/output-results.jpg" alt="بطاقة نتائج ومخرجات المنظومة الهندسية">
+                    <div class="image-caption">الشكل (7-أ): النتائج الأساسية (سعة البطاريات، عدد الألواح، الإنفرتر)[span_26](start_span)[span_26](end_span)</div>
+                </div>
+
+                <div class="gallery-grid">
+                    <div class="image-container">
+                        <img src="images/output-cables-card.jpg" alt="مواصفات الكابلات والقواطع">
+                        <div class="image-caption">الشكل (7-ب): بطاقة توصيات الكابلات والقواطع[span_27](start_span)[span_27](end_span)</div>
+                    </div>
+                    <div class="image-container">
+                        <img src="images/output-structure.jpg" alt="هيكلية المنظومة التجارية">
+                        <div class="image-caption">الشكل (7-ج): خريطة معمارية السلاسل والجهد العالي (HV)[span_28](start_span)[span_28](end_span)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- الباب الثامن: تصدير PDF -->
+        <section id="export" class="section-card">
+            <h2 class="section-title">📄 الباب الثامن: تصدير التقارير الفنية (PDF)</h2>
+            <div class="content-block">
+                <p>تصدير تقرير فني رسمي وموثق بأسماء المهندس والعميل متوافق تماماً مع معايير الطباعة[span_29](start_span)[span_29](end_span).</p>
+
+                <div class="image-container">
+                    <img src="images/export-pdf.jpg" alt="إعدادات تصدير تقرير PDF">
+                    <div class="image-caption">الشكل (8): خانات إدخال بيانات التقرير وتصديره رسمياً[span_30](start_span)[span_30](end_span)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- الأزرار السفليّة -->
+        <div class="actions-wrapper">
+            <a href="https://solar-pro-calculator.netlify.app" target="_blank" class="btn btn-primary">
+                ⚡ الانتقال إلى حاسبة الطاقة الشمسية الذكية
+            </a>
+            <a href="manual.pdf" download class="btn btn-secondary">
+                📥 تحميل نسخة الدليل المطبوعة (PDF)[span_31](start_span)[span_31](end_span)
+            </a>
+        </div>
+
+        <!-- الفوتر -->
+        <footer class="footer">
+            <p>Smart Solar Calculator - V9 Pro © جميع الحقوق محفوظة - أداة الويب الهندسية الذكية[span_32](start_span)[span_32](end_span)</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
