@@ -854,6 +854,7 @@
     </div>
 
     <script>
+        // دالة فحص وتحميل الصور بذكاء مثل بنر الهيدر لتجنب أي أخطاء أو تعليق
         function applyLanguage() {
             let currentLang = localStorage.getItem('solar_app_lang') || 'ar';
             
@@ -866,14 +867,21 @@
                 langBtn.innerHTML = currentLang === 'ar' ? 'EN ' + globeSvg : 'AR ' + globeSvg;
             }
 
+            // فحص وتحميل الصور بطريقة آمنة تماماً مثل فكرة البنر العشوائي
             document.querySelectorAll('.lang-img').forEach(img => {
                 const baseName = img.getAttribute('data-base-src');
                 if (baseName) {
-                    if (currentLang === 'en') {
-                        img.src = baseName + '-en.jpg?v=5';
-                    } else {
-                        img.src = baseName + '.jpg?v=5';
-                    }
+                    let targetSrc = (currentLang === 'en' ? baseName + '-en.jpg' : baseName + '.jpg') + '?v=6';
+                    
+                    let testImg = new Image();
+                    testImg.onload = function() {
+                        img.src = targetSrc;
+                    };
+                    testImg.onerror = function() {
+                        // في حال حدث أي خطأ يتم الرجوع للصورة الأساسية مباشرة
+                        img.src = baseName + '.jpg?v=6';
+                    };
+                    testImg.src = targetSrc;
                 }
             });
         }
