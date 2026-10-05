@@ -854,7 +854,6 @@
     </div>
 
     <script>
-        // دالة تطبيق اللغة وقراءة التفضيلات وإزالة مسار المجلدات لتتوافق مع الجذر
         function applyLanguage() {
             let currentLang = localStorage.getItem('solar_app_lang') || 'ar';
             
@@ -862,20 +861,23 @@
             document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
             
             const globeSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>';
-            document.getElementById('langBtn').innerHTML = currentLang === 'ar' ? 'EN ' + globeSvg : 'AR ' + globeSvg;
+            const langBtn = document.getElementById('langBtn');
+            if (langBtn) {
+                langBtn.innerHTML = currentLang === 'ar' ? 'EN ' + globeSvg : 'AR ' + globeSvg;
+            }
 
-            // التبديل المباشر من الجذر الرئيسي مع طابع كسر الكاش v=4
             document.querySelectorAll('.lang-img').forEach(img => {
                 const baseName = img.getAttribute('data-base-src');
-                if (currentLang === 'en') {
-                    img.src = baseName + '-en.jpg?v=4'; 
-                } else {
-                    img.src = baseName + '.jpg?v=4';    
+                if (baseName) {
+                    if (currentLang === 'en') {
+                        img.src = baseName + '-en.jpg?v=5';
+                    } else {
+                        img.src = baseName + '.jpg?v=5';
+                    }
                 }
             });
         }
 
-        // دالة تبديل اللغة وحفظها
         function toggleLanguage() {
             let currentLang = localStorage.getItem('solar_app_lang') || 'ar';
             currentLang = currentLang === 'ar' ? 'en' : 'ar';
@@ -883,7 +885,6 @@
             applyLanguage();
         }
 
-        // تطبيق اللغة فور تحميل الصفحة
         document.addEventListener('DOMContentLoaded', applyLanguage);
     </script>
 </body>
