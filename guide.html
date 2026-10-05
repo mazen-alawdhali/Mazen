@@ -377,10 +377,10 @@
 
             <div class="gallery-grid">
                 <div class="image-container">
-                    <img class="lang-img" data-base-src="images/pwa-step1" src="images/pwa-step1.jpg" alt="PWA Step 1">
+                    <img class="lang-img" data-base-src="pwa-step1" src="pwa-step1.jpg" alt="PWA Step 1">
                 </div>
                 <div class="image-container">
-                    <img class="lang-img" data-base-src="images/pwa-step2" src="images/pwa-step2.jpg" alt="PWA Step 2">
+                    <img class="lang-img" data-base-src="pwa-step2" src="pwa-step2.jpg" alt="PWA Step 2">
                 </div>
             </div>
             
@@ -416,7 +416,7 @@
             </div>
 
             <div class="image-container">
-                <img class="lang-img" data-base-src="images/system-settings" src="images/system-settings.jpg" alt="System Settings">
+                <img class="lang-img" data-base-src="system-settings" src="system-settings.jpg" alt="System Settings">
             </div>
 
             <div class="content-block ar-only">
@@ -474,7 +474,7 @@
             </div>
 
             <div class="image-container">
-                <img class="lang-img" data-base-src="images/hybrid-settings" src="images/hybrid-settings.jpg" alt="Hybrid Settings">
+                <img class="lang-img" data-base-src="hybrid-settings" src="hybrid-settings.jpg" alt="Hybrid Settings">
             </div>
 
             <div class="info-box ar-only">
@@ -514,7 +514,7 @@
             </div>
 
             <div class="image-container">
-                <img class="lang-img" data-base-src="images/cables-settings" src="images/cables-settings.jpg" alt="Cables Settings">
+                <img class="lang-img" data-base-src="cables-settings" src="cables-settings.jpg" alt="Cables Settings">
             </div>
 
             <div class="content-block ar-only">
@@ -557,7 +557,7 @@
             </div>
 
             <div class="image-container">
-                <img class="lang-img" data-base-src="images/enterprise-settings" src="images/enterprise-settings.jpg" alt="Enterprise Settings">
+                <img class="lang-img" data-base-src="enterprise-settings" src="enterprise-settings.jpg" alt="Enterprise Settings">
             </div>
 
             <div class="content-block ar-only">
@@ -617,7 +617,7 @@
             </div>
 
             <div class="image-container">
-                <img class="lang-img" data-base-src="images/appliance-table" src="images/appliance-table.jpg" alt="Appliance Table">
+                <img class="lang-img" data-base-src="appliance-table" src="appliance-table.jpg" alt="Appliance Table">
             </div>
 
             <div class="content-block ar-only">
@@ -674,7 +674,7 @@
             </div>
 
             <div class="image-container">
-                <img class="lang-img" data-base-src="images/output-results" src="images/output-results.jpg" alt="Output Results">
+                <img class="lang-img" data-base-src="output-results" src="output-results.jpg" alt="Output Results">
             </div>
 
             <div class="content-block ar-only">
@@ -716,7 +716,7 @@
             </div>
 
             <div class="image-container">
-                <img class="lang-img" data-base-src="images/output-cables-card" src="images/output-cables-card.jpg" alt="Cables Output">
+                <img class="lang-img" data-base-src="output-cables-card" src="output-cables-card.jpg" alt="Cables Output">
             </div>
 
             <div class="content-block ar-only">
@@ -744,7 +744,7 @@
             </div>
 
             <div class="image-container">
-                <img class="lang-img" data-base-src="images/output-structure" src="images/output-structure.jpg" alt="Enterprise Architecture">
+                <img class="lang-img" data-base-src="output-structure" src="output-structure.jpg" alt="Enterprise Architecture">
             </div>
 
             <div class="content-block ar-only">
@@ -802,7 +802,7 @@
             </div>
 
             <div class="image-container">
-                <img class="lang-img" data-base-src="images/export-pdf" src="images/export-pdf.jpg" alt="PDF Export">
+                <img class="lang-img" data-base-src="export-pdf" src="export-pdf.jpg" alt="PDF Export">
             </div>
 
             <div class="content-block ar-only">
@@ -854,7 +854,7 @@
     </div>
 
     <script>
-        // دالة تطبيق اللغة وقراءة التفضيلات مع كسر التخزين المؤقت للصور
+        // دالة تطبيق اللغة وقراءة التفضيلات وإزالة مسار المجلدات لتتوافق مع الجذر
         function applyLanguage() {
             let currentLang = localStorage.getItem('solar_app_lang') || 'ar';
             
@@ -864,13 +864,13 @@
             const globeSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>';
             document.getElementById('langBtn').innerHTML = currentLang === 'ar' ? 'EN ' + globeSvg : 'AR ' + globeSvg;
 
-            // التبديل الذكي لمسارات الصور مع طابع الإصدار (Cache Buster)
+            // التبديل المباشر من الجذر الرئيسي مع طابع كسر الكاش v=4
             document.querySelectorAll('.lang-img').forEach(img => {
                 const baseName = img.getAttribute('data-base-src');
                 if (currentLang === 'en') {
-                    img.src = baseName + '-en.jpg?v=3'; 
+                    img.src = baseName + '-en.jpg?v=4'; 
                 } else {
-                    img.src = baseName + '.jpg?v=3';    
+                    img.src = baseName + '.jpg?v=4';    
                 }
             });
         }
