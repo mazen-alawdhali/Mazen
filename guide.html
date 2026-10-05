@@ -377,6 +377,7 @@
 
             <div class="gallery-grid">
                 <div class="image-container">
+                    <!-- Note the data-base-src attribute used for switching languages -->
                     <img class="lang-img" data-base-src="images/pwa-step1" src="images/pwa-step1.jpg" alt="PWA Step 1">
                 </div>
                 <div class="image-container">
@@ -571,8 +572,8 @@
                         </ul>
                     </li>
                     <li><strong>إجمالي الاستهلاك اليومي (kWh):</strong> خانة مخصصة لإدخال إجمالي الطاقة اليومية المطلوبة للمشروع (مثال: 50 كيلوواط)، والتي بناءً عليها يتم تفعيل وضع المشاريع الكبيرة وتجاوز جدول حصر وإضافة الأجهزة المنفردة لمنع ازدواجية الحسابات.</li>
-                    <li><strong>عدد الساعات نهاراً:</strong> أدخل عدد الساعات التشغيل الفعلية للمشروع خلال فترة النهار سطوع الشمس). تقوم الحاسبة باحتساب الاستهلاك النهراي المباشر لتحديد حجم الألواح المطلوبة لتغذية الأحمال فوراً دون الحاجة للمرور عبر البطاريات.</li>
-                    <li><strong>عدد الساعات ليلاً:</strong> أدخل عدد الساعات التشغيل المطلوبة للمشروع خلال الفترة الليلية. تقوم الخوارزمية بناءً على هذه القيمة بتحديد نسبة الاستهلاك ليلاً وتعيين سعة طاقة التخزين المطلوبة لبنك البطاريات (kWh) لتغطية تشغيل المشروع طوال الليل بدقة.</li>
+                    <li><strong>عدد الساعات نهاراً:</strong> أدخل عدد ساعات التشغيل الفعلية للمشروع خلال فترة النهار سطوع الشمس). تقوم الحاسبة باحتساب الاستهلاك النهراي المباشر لتحديد حجم الألواح المطلوبة لتغذية الأحمال فوراً دون الحاجة للمرور عبر البطاريات.</li>
+                    <li><strong>عدد الساعات ليلاً:</strong> أدخل عدد ساعات التشغيل المطلوبة للمشروع خلال الفترة الليلية. تقوم الخوارزمية بناءً على هذه القيمة بتحديد نسبة الاستهلاك ليلاً وتعيين سعة طاقة التخزين المطلوبة لبنك البطاريات (kWh) لتغطية تشغيل المشروع طوال الليل بدقة.</li>
                 </ul>
             </div>
             <div class="content-block en-only">
@@ -798,7 +799,7 @@
                 <p>لإضفاء الطابع الرسمي والاحترافي على مخرجات عملك أمام عملائك وشركاتك، تتيح لك الحاسبة طباعة تقارير هندسية متكاملة عبر الخطوات التالية:</p>
             </div>
             <div class="content-block en-only">
-                <p>Add an official and professional touch to your workflow deliverables for clients and companies by printing integrated engineering reports.</p>
+                <p>To add an official and professional touch to your workflow deliverables for clients and companies, the calculator allows you to print integrated engineering reports via the following steps:</p>
             </div>
 
             <div class="image-container">
@@ -854,31 +855,31 @@
     </div>
 
     <script>
+        // دالة تطبيق اللغة وقراءة التفضيلات من المتصفح
         function applyLanguage() {
+            // قراءة اللغة المحفوظة في التطبيق الرئيسي (العربية كافتراضي)
             let currentLang = localStorage.getItem('solar_app_lang') || 'ar';
             
+            // تغيير خصائص صفحة الويب
             document.documentElement.lang = currentLang;
             document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
             
+            // تحديث زر اللغة نفسه
             const globeSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>';
-            const langBtn = document.getElementById('langBtn');
-            if (langBtn) {
-                langBtn.innerHTML = currentLang === 'ar' ? 'EN ' + globeSvg : 'AR ' + globeSvg;
-            }
+            document.getElementById('langBtn').innerHTML = currentLang === 'ar' ? 'EN ' + globeSvg : 'AR ' + globeSvg;
 
-            // التحديث المباشر للمسارات مع تفعيل كسر الكاش v=7
+            // التبديل الذكي لمسارات الصور
             document.querySelectorAll('.lang-img').forEach(img => {
                 const baseName = img.getAttribute('data-base-src');
-                if (baseName) {
-                    if (currentLang === 'en') {
-                        img.src = baseName + '-en.jpg?v=7';
-                    } else {
-                        img.src = baseName + '.jpg?v=7';
-                    }
+                if (currentLang === 'en') {
+                    img.src = baseName + '-en.jpg'; // تحميل الصورة الإنجليزية
+                } else {
+                    img.src = baseName + '.jpg';    // تحميل الصورة العربية
                 }
             });
         }
 
+        // دالة تبديل اللغة وحفظها
         function toggleLanguage() {
             let currentLang = localStorage.getItem('solar_app_lang') || 'ar';
             currentLang = currentLang === 'ar' ? 'en' : 'ar';
@@ -886,6 +887,7 @@
             applyLanguage();
         }
 
+        // تطبيق اللغة فور تحميل الصفحة
         document.addEventListener('DOMContentLoaded', applyLanguage);
     </script>
 </body>
