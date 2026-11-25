@@ -1,45 +1,56 @@
-const CACHE_NAME = 'battery-calculator-v8';
+const CACHE_NAME = 'solar-calc-v20-cache';
 const NETWORK_TIMEOUT_MS = 3000;
 
-const ASSETS_TO_CACHE = [
-    '/',
-    '/index.html',
-    '/favicon.ico',
-    '/favicon.svg',
-    '/favicon-96x96.png',
-    '/apple-touch-icon.png',
-    '/site.webmanifest',
-    '/about.html',
-    '/privacy.html'
+const urlsToCache = [
+  '/',
+  '/index.html',
+  '/site.webmanifest',
+  '/favicon.ico',
+  '/favicon.svg',
+  '/favicon-96x96.png',
+  '/apple-touch-icon.png',
+  '/web-app-manifest-192x192.png',
+  '/web-app-manifest-512x512.png',
+  'https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&display=swap'
 ];
 
-// تثبيت الـ Service Worker وحفظ الملفات الأساسية في الكاش
-self.addEventListener('install', (event) => {
-    event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
-            return cache.addAll(ASSETS_TO_CACHE);
-        }).then(() => self.skipWaiting())
-    );
+// تنصيب التطبيق وتخزين الملفات في ذاكرة الجوال
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => {
+      console.log('تم حفظ الملفات للعمل أوفلاين بنجاح');
+      return cache.addAll(urlsToCache).then(() =>
+        fetch('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&display=swap')
+          .then(r => r.text())
+          .then(css => {
+            const fontUrls = css.match(/https:\/\/fonts\.gstatic\.com\/[^)]+/g);
+            return fontUrls ? cache.addAll(fontUrls) : null;
+          })
+          .catch(() => {})
+      );
+    }).then(() => self.skipWaiting()) // إجبار المتصفح على تفعيل النسخة الجديدة فوراً دون انتظار
+  );
 });
 
-// تفعيل الإصدار الجديد وحذف الكاش القديم تلقائياً
-self.addEventListener('activate', (event) => {
-    event.waitUntil(
-        caches.keys().then((cacheNames) => {
-            return Promise.all(
-                cacheNames.map((cache) => {
-                    if (cache !== CACHE_NAME) {
-                        return caches.delete(cache);
-                    }
-                })
-            );
-        }).then(() => self.clients.claim())
-    );
+// تفعيل السيرفيس وركر ومسح الكاش القديم تلقائياً
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheName !== CACHE_NAME) {
+            console.log('تم مسح الكاش القديم:', cacheName);
+            return caches.delete(cacheName); // حذف الإصدارات القديمة
+          }
+        })
+      );
+    }).then(() => self.clients.claim()) // السيطرة المباشرة على كل النوافذ المفتوحة للتطبيق
+  );
 });
 
 // استراتيجية Network-First مع مهلة 3 ثوانٍ والرجوع للكاش عند التأخير أو الأوفلاين
 self.addEventListener('fetch', (event) => {
-    // السماح بتخزين الخطوط من Google Fonts وتجاهل بقية الطلبات الخارجية مثل APIs
+    // تتجاهل الطلبات الخارجية مثل APIs أو روابط تحليلات الزيارات وتسمح بخطوط جوجل
     const isGoogleFont = event.request.url.startsWith('https://fonts.googleapis.com') || event.request.url.startsWith('https://fonts.gstatic.com');
     if (event.request.method !== 'GET' || (!event.request.url.startsWith(self.location.origin) && !isGoogleFont)) {
         return;
@@ -92,4 +103,11 @@ self.addEventListener('fetch', (event) => {
             });
         })
     );
+});
+
+// استقبال أمر تخطي الانتظار من الشريط العائم لتفعيل التحديث فوراً عند النقر على "تحديث الآن"
+self.addEventListener('message', event => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });
