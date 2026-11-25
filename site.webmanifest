@@ -1,24 +1,33 @@
 {
-  "name": "حاسبة الألواح الشمسية",
-  "short_name": "حاسبة الألواح",
-  "description": "أداة هندسية دقيقة لحساب عدد الألواح الشمسية اللازمة لشحن بطاريات الليثيوم والجل بدقة عالية بناءً على سعة البطارية، نسبة التفريغ (DoD)، ساعات ذروة الشمس، وكفاءة المنطقة الجغرافية.",
-  "start_url": "./",
+  "name": "حاسبة ومراقب البطارية",
+  "short_name": "مراقب البطارية",
+  "description": "أداة هندسية دقيقة لحساب زمن التشغيل المتبقي للبطاريات.",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#0f172a",
-  "theme_color": "#010306",
-  "orientation": "portrait",
+  "theme_color": "#0f172a",
+  "dir": "rtl",
+  "lang": "ar",
   "icons": [
     {
-      "src": "web-app-manifest-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "src": "/favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
     },
     {
-      "src": "web-app-manifest-512x512.png",
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/web-app-manifest-512x512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ]
 }

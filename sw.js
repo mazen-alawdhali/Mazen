@@ -1,4 +1,4 @@
-const CACHE_NAME = 'solar-panels-v7';
+const CACHE_NAME = 'battery-calculator-v8';
 const NETWORK_TIMEOUT_MS = 3000;
 
 const ASSETS_TO_CACHE = [
@@ -10,8 +10,7 @@ const ASSETS_TO_CACHE = [
     '/apple-touch-icon.png',
     '/site.webmanifest',
     '/about.html',
-    '/privacy.html',
-    'https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&display=swap'
+    '/privacy.html'
 ];
 
 // تثبيت الـ Service Worker وحفظ الملفات الأساسية في الكاش
@@ -40,8 +39,9 @@ self.addEventListener('activate', (event) => {
 
 // استراتيجية Network-First مع مهلة 3 ثوانٍ والرجوع للكاش عند التأخير أو الأوفلاين
 self.addEventListener('fetch', (event) => {
-    // تتجاهل الطلبات الخارجية مثل APIs أو روابط تحليلات الزيارات وتسمح بملفات الخطوط
-    if (event.request.method !== 'GET' || (!event.request.url.startsWith(self.location.origin) && !event.request.url.startsWith('https://fonts.googleapis.com') && !event.request.url.startsWith('https://fonts.gstatic.com'))) {
+    // السماح بتخزين الخطوط من Google Fonts وتجاهل بقية الطلبات الخارجية مثل APIs
+    const isGoogleFont = event.request.url.startsWith('https://fonts.googleapis.com') || event.request.url.startsWith('https://fonts.gstatic.com');
+    if (event.request.method !== 'GET' || (!event.request.url.startsWith(self.location.origin) && !isGoogleFont)) {
         return;
     }
 
