@@ -1,65 +1,95 @@
-const CACHE_NAME = 'battery-monitor-v2-cache'; 
-const urlsToCache = [
-  '/',
-  '/index.html',
-  '/site.webmanifest',
-  '/favicon.ico',
-  '/favicon.svg',
-  '/favicon-96x96.png',
-  '/apple-touch-icon.png',
-  '/web-app-manifest-192x192.png',  
-  '/web-app-manifest-512x512.png'   
+const CACHE_NAME = 'solar-panels-v7';
+const NETWORK_TIMEOUT_MS = 3000;
+
+const ASSETS_TO_CACHE = [
+    '/',
+    '/index.html',
+    '/favicon.ico',
+    '/favicon.svg',
+    '/favicon-96x96.png',
+    '/apple-touch-icon.png',
+    '/site.webmanifest',
+    '/about.html',
+    '/privacy.html',
+    'https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&display=swap'
 ];
 
-// 1. تنصيب التطبيق وتخزين الملفات في ذاكرة الجوال مع فرض تخطي الانتظار
-self.addEventListener('install', event => {
-  self.skipWaiting();
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      console.log('تم تنصيب الكاش الذكي للبطارية بنجاح');
-      return cache.addAll(urlsToCache);
-    })
-  );
+// تثبيت الـ Service Worker وحفظ الملفات الأساسية في الكاش
+self.addEventListener('install', (event) => {
+    event.waitUntil(
+        caches.open(CACHE_NAME).then((cache) => {
+            return cache.addAll(ASSETS_TO_CACHE);
+        }).then(() => self.skipWaiting())
+    );
 });
 
-// 2. تفعيل السيرفيس وركر ومسح الكاش القديم والسيطرة الفورية
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('تم مسح الكاش القديم:', cacheName);
-            return caches.delete(cacheName);
-          }
+// تفعيل الإصدار الجديد وحذف الكاش القديم تلقائياً
+self.addEventListener('activate', (event) => {
+    event.waitUntil(
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames.map((cache) => {
+                    if (cache !== CACHE_NAME) {
+                        return caches.delete(cache);
+                    }
+                })
+            );
+        }).then(() => self.clients.claim())
+    );
+});
+
+// استراتيجية Network-First مع مهلة 3 ثوانٍ والرجوع للكاش عند التأخير أو الأوفلاين
+self.addEventListener('fetch', (event) => {
+    // تتجاهل الطلبات الخارجية مثل APIs أو روابط تحليلات الزيارات وتسمح بملفات الخطوط
+    if (event.request.method !== 'GET' || (!event.request.url.startsWith(self.location.origin) && !event.request.url.startsWith('https://fonts.googleapis.com') && !event.request.url.startsWith('https://fonts.gstatic.com'))) {
+        return;
+    }
+
+    event.respondWith(
+        new Promise((resolve) => {
+            let isTimedOut = false;
+
+            // مؤقت المهلة (3 ثوانٍ)
+            const timeoutId = setTimeout(() => {
+                isTimedOut = true;
+                caches.match(event.request, { ignoreSearch: true }).then((cachedResponse) => {
+                    if (cachedResponse) {
+                        resolve(cachedResponse);
+                    }
+                });
+            }, NETWORK_TIMEOUT_MS);
+
+            // محاولة الجلب من الشبكة أولاً
+            fetch(event.request).then((networkResponse) => {
+                clearTimeout(timeoutId);
+
+                // إذا نجح الاتصال وكانت الاستجابة سليمة، نحدث الكاش ونرجع الملف الجديد
+                if (networkResponse && networkResponse.status === 200) {
+                    const responseToCache = networkResponse.clone();
+                    caches.open(CACHE_NAME).then((cache) => {
+                        cache.put(event.request, responseToCache);
+                    });
+
+                    if (!isTimedOut) {
+                        resolve(networkResponse);
+                    }
+                } else {
+                    // إذا أرجع السيرفر خطأ، نرجع النسخة المحفوظة من الكاش
+                    if (!isTimedOut) {
+                        caches.match(event.request, { ignoreSearch: true }).then((cachedResponse) => {
+                            resolve(cachedResponse || networkResponse);
+                        });
+                    }
+                }
+            }).catch(() => {
+                // في حالة انقطاع الشبكة (الأوفلاين) قبل انقضاء المهلة
+                clearTimeout(timeoutId);
+                if (!isTimedOut) {
+                    caches.match(event.request, { ignoreSearch: true }).then((cachedResponse) => {
+                        resolve(cachedResponse || new Response('Offline', { status: 503, statusText: 'Service Unavailable' }));
+                    });
+                }
+            });
         })
-      );
-    }).then(() => self.clients.claim())
-  );
-});
-
-// 3. اعتراض الطلبات واستراتيجية التحديث الذكي
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    fetch(event.request)
-      .then(networkResponse => {
-        if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
-          const responseToCache = networkResponse.clone();
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, responseToCache);
-          });
-        }
-        return networkResponse;
-      })
-      .catch(() => {
-        return caches.match(event.request);
-      })
-  );
-});
-
-// استقبال أمر تخطي الانتظار
-self.addEventListener('message', event => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
-  }
+    );
 });
